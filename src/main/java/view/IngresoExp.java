@@ -4,6 +4,7 @@
  */
 package view;
 
+import expedientes.Administrador;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,7 @@ public class IngresoExp extends javax.swing.JFrame {
      */
     private Bienvenido home;
     private boolean creandoPersona;
+    private boolean registrado;
             
     public IngresoExp() {
         initComponents();
@@ -26,10 +28,18 @@ public class IngresoExp extends javax.swing.JFrame {
         initComponents();
         this.home = home;
         this.creandoPersona = false;
+        this.registrado = false;
     }
     
     public void SetCreandoPersona(boolean b){
         this.creandoPersona = b;
+    }
+    
+    public void RegistrarDNI(){
+        registrado = true;
+        lbYaRegistrado.setText("Ya Registrado!");
+        tfDNI.setEnabled(false);
+        btnRegInteresado.setEnabled(false);
     }
     
     /**
@@ -58,6 +68,7 @@ public class IngresoExp extends javax.swing.JFrame {
         tfDNI = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         btnRegInteresado = new javax.swing.JToggleButton();
+        lbYaRegistrado = new javax.swing.JLabel();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -138,6 +149,10 @@ public class IngresoExp extends javax.swing.JFrame {
             }
         });
 
+        lbYaRegistrado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbYaRegistrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbYaRegistrado.setText("No Registrado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,6 +178,7 @@ public class IngresoExp extends javax.swing.JFrame {
                                         .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)
                                         .addComponent(jCheckBox1)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
@@ -179,7 +195,8 @@ public class IngresoExp extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnRegInteresado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDNI))))
+                            .addComponent(tfDNI)
+                            .addComponent(lbYaRegistrado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(15, 32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -203,7 +220,10 @@ public class IngresoExp extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRegInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbYaRegistrado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,10 +240,33 @@ public class IngresoExp extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        this.dispose();
+        if (creandoPersona){
+            Inicio.AdvertirError("Hay una venta abierta", "");
+        }
+        else{
+            home.SetCreoVentana(false);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        if (!registrado){
+            Inicio.AdvertirError("Aun no estas registrado", "");
+            return;
+        }
+        int id = -1;
+        try {   
+            id = Integer.parseInt(tfID.getText());
+        }
+        catch (NumberFormatException e) {
+            id = -1;
+        }
+        if (id <= 0){
+            Inicio.AdvertirError("Numero menor a 0 o invalido", "");
+        }
+        else{
+            ///Crear expediente
+        }
         
     }//GEN-LAST:event_btnAcceptActionPerformed
 
@@ -251,18 +294,27 @@ public class IngresoExp extends javax.swing.JFrame {
         catch (NumberFormatException e) {
             dni = -1;
         }
-        if (dni < 0 && !creandoPersona){
-            JOptionPane.showMessageDialog(null, "Error\nNo es un numero", "Titulo", JOptionPane.ERROR_MESSAGE);
-        }
-        else{
-            //Buscar el dni en la lista de expedientes
-            if (!creandoPersona){
-                IngresoInteresado ventanaPersona = new IngresoInteresado(this);
-                ventanaPersona.setVisible(true);
-                creandoPersona = true;
-            }
+        if (creandoPersona){
+            return;
         }
         
+        if (dni < 0){
+            Inicio.AdvertirError("Numero invalido", "");
+        }
+        else{
+            int posDNI = Administrador.listaDNI.ubicacion(dni);
+            if (posDNI == -1){
+                int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION);
+                if (respuesta == JOptionPane.YES_OPTION){
+                    IngresoInteresado ventanaPersona = new IngresoInteresado(this, dni);
+                    ventanaPersona.setVisible(true);
+                    creandoPersona = true;
+                }
+            }
+            else{
+                RegistrarDNI();
+            }
+        }
     }//GEN-LAST:event_btnRegInteresadoActionPerformed
 
     /**
@@ -317,6 +369,7 @@ public class IngresoExp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbYaRegistrado;
     private javax.swing.JTextField tfAsunto;
     private javax.swing.JTextField tfDNI;
     private javax.swing.JTextArea tfDocumento;

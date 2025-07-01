@@ -23,6 +23,9 @@ public class Inicio extends javax.swing.JFrame {
         ventanaWelcome = null;
     }
 
+    public static void AdvertirError(String texto, String titulo){
+        JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +128,12 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        this.dispose();
+        if (ventanaWelcome != null){
+            Inicio.AdvertirError("Hay una venta abierta", "");
+        }
+        else{
+            this.dispose();
+        }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
@@ -144,11 +152,11 @@ public class Inicio extends javax.swing.JFrame {
                 ventanaWelcome.setVisible(true);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Ya hay una pestaña", "Titulo", JOptionPane.ERROR_MESSAGE);
+                AdvertirError("Ya hay una pestaña","Titulo");
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Titulo", JOptionPane.ERROR_MESSAGE);
+            AdvertirError("Contraseña incorrecta","Titulo");
         }
         
     }//GEN-LAST:event_btnAcceptActionPerformed

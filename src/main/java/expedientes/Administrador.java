@@ -25,5 +25,4 @@ public class Administrador {
     //b. Registrar el movimiento del expediente.
     //c. Registrar finalización del trámite del expediente. 
     //d. Puede proporcionar al interesado el seguimiento de su trámite.
-    
 }
