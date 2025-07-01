@@ -15,15 +15,23 @@ public class Bienvenido extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
+    public boolean creoVentana;
     public Inicio ventanaIni;;
     
     public Bienvenido() {
         initComponents();
+        creoVentana = false;
     }
     
     public Bienvenido(Inicio c) {
         initComponents();
         ventanaIni = c;
+        creoVentana = false;
+    }
+    
+    public void SetCreoVentana(boolean b){
+        creoVentana = b;
     }
 
     /**
@@ -37,10 +45,11 @@ public class Bienvenido extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnExit = new javax.swing.JToggleButton();
-        btnAccept = new javax.swing.JToggleButton();
-        btnAccept1 = new javax.swing.JToggleButton();
-        btnAccept2 = new javax.swing.JToggleButton();
-        btnAccept3 = new javax.swing.JToggleButton();
+        btnRegNewExp = new javax.swing.JToggleButton();
+        btnVerMovExp = new javax.swing.JToggleButton();
+        btnFinRegExp = new javax.swing.JToggleButton();
+        btnInfInteresado = new javax.swing.JToggleButton();
+        btnCrearDep = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,31 +64,38 @@ public class Bienvenido extends javax.swing.JFrame {
             }
         });
 
-        btnAccept.setText("Registrar nuevo expediente");
-        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+        btnRegNewExp.setText("Registrar nuevo expediente");
+        btnRegNewExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcceptActionPerformed(evt);
+                btnRegNewExpActionPerformed(evt);
             }
         });
 
-        btnAccept1.setText("Ver movimiento de expediente");
-        btnAccept1.addActionListener(new java.awt.event.ActionListener() {
+        btnVerMovExp.setText("Ver movimiento de expediente");
+        btnVerMovExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccept1ActionPerformed(evt);
+                btnVerMovExpActionPerformed(evt);
             }
         });
 
-        btnAccept2.setText("Finalizar registro de expediente");
-        btnAccept2.addActionListener(new java.awt.event.ActionListener() {
+        btnFinRegExp.setText("Finalizar registro de expediente");
+        btnFinRegExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccept2ActionPerformed(evt);
+                btnFinRegExpActionPerformed(evt);
             }
         });
 
-        btnAccept3.setText("Informar al interesado");
-        btnAccept3.addActionListener(new java.awt.event.ActionListener() {
+        btnInfInteresado.setText("Informar al interesado");
+        btnInfInteresado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccept3ActionPerformed(evt);
+                btnInfInteresadoActionPerformed(evt);
+            }
+        });
+
+        btnCrearDep.setText("Crear dependencia");
+        btnCrearDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearDepActionPerformed(evt);
             }
         });
 
@@ -89,20 +105,23 @@ public class Bienvenido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(351, Short.MAX_VALUE)
+                .addComponent(btnExit)
+                .addGap(41, 41, 41))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAccept1)
-                            .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAccept2))
-                        .addGap(102, 102, 102))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAccept3)
-                        .addGap(123, 123, 123))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnExit)
-                        .addGap(41, 41, 41))))
+                    .addComponent(btnCrearDep)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnFinRegExp)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInfInteresado))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnRegNewExp)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +129,16 @@ public class Bienvenido extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAccept1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAccept2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAccept3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegNewExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnInfInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addComponent(btnExit)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -131,22 +152,30 @@ public class Bienvenido extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        IngresoExp ventanaIngExp = new IngresoExp();
-        ventanaIngExp.setVisible(true);
-    }//GEN-LAST:event_btnAcceptActionPerformed
+    private void btnRegNewExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegNewExpActionPerformed
+        if (!creoVentana){
+            IngresoExp ventanaIngExp = new IngresoExp();
+            ventanaIngExp.setVisible(true);
+            creoVentana = true;
+        }
+    }//GEN-LAST:event_btnRegNewExpActionPerformed
 
-    private void btnAccept1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccept1ActionPerformed
+    private void btnVerMovExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMovExpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAccept1ActionPerformed
+    }//GEN-LAST:event_btnVerMovExpActionPerformed
 
-    private void btnAccept2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccept2ActionPerformed
+    private void btnFinRegExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinRegExpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAccept2ActionPerformed
+    }//GEN-LAST:event_btnFinRegExpActionPerformed
 
-    private void btnAccept3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccept3ActionPerformed
+    private void btnInfInteresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfInteresadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAccept3ActionPerformed
+    }//GEN-LAST:event_btnInfInteresadoActionPerformed
+
+    private void btnCrearDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearDepActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnCrearDepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,11 +214,12 @@ public class Bienvenido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAccept;
-    private javax.swing.JToggleButton btnAccept1;
-    private javax.swing.JToggleButton btnAccept2;
-    private javax.swing.JToggleButton btnAccept3;
+    private javax.swing.JToggleButton btnCrearDep;
     private javax.swing.JToggleButton btnExit;
+    private javax.swing.JToggleButton btnFinRegExp;
+    private javax.swing.JToggleButton btnInfInteresado;
+    private javax.swing.JToggleButton btnRegNewExp;
+    private javax.swing.JToggleButton btnVerMovExp;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

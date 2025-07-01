@@ -9,8 +9,14 @@ import tda.Cola;
  * @author maldo
  */
 public class Dependencia {
-      private String nombre, encargado;
+    //Oficina
+    private String nombre;
+    //Dueño de la oficina
+    private String encargado;
+    //Cada 
     private Cola<Tramite> colaTramites;
+    
+    //Referencia para el ultimo en la cola
     private Tramite ulitmoTramite;
 
     public Dependencia() {
@@ -43,6 +49,7 @@ public class Dependencia {
         return colaTramites;
     }
 
+    //No sera necesario
     public void setColaTramites(Cola<Tramite> colaTramites) {
         this.colaTramites = colaTramites;
     }
@@ -57,13 +64,13 @@ public class Dependencia {
      
     //Agregar un expediente a la cola
     public void agregarExpediente(Tramite tramite){
-        this.ulitmoTramite = tramite; //Se actualiza el ultimo tramite
         if(tramite.esPrioritario()){
             colocarAlFrente(tramite);
         }
         else{
             colaTramites.encolar(tramite);
-    }
+            this.ulitmoTramite = tramite; //Se actualiza el ultimo tramite
+        }
     }
     
     // Coloca el expediente al principio de la cola
@@ -102,7 +109,7 @@ public class Dependencia {
         //Restauramos la cola original
         while(!aux.esVacia()){
             colaTramites.encolar(aux.desencolar());
-    }
+        }
         System.out.println("");
     }
 

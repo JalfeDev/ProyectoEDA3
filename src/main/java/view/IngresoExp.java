@@ -15,9 +15,15 @@ public class IngresoExp extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    
+    private Bienvenido home;
+            
     public IngresoExp() {
         initComponents();
+    }
+    
+    public IngresoExp(Bienvenido home) {
+        initComponents();
+        this.home = home;
     }
 
     /**

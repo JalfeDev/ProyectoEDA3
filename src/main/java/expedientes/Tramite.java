@@ -13,7 +13,7 @@ public class Tramite {
     ///El final es como un read-only, ahorra mas energia
     private final String id;
     private final boolean prioritario;
-    private final Persona interesado;
+    private final Interesado interesado;
     private final String asunto;
     private final Documento documento;
     private boolean finalizado;
@@ -23,7 +23,7 @@ public class Tramite {
     private final Fecha finTramite;
     //Documentos, producto del trámite documentario
 
-    public Tramite(String id, boolean prioritario, Persona interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
+    public Tramite(String id, boolean prioritario, Interesado interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
         this.id = id;
         this.prioritario = prioritario;
         this.interesado = interesado;
@@ -42,7 +42,7 @@ public class Tramite {
         return prioritario;
     }
 
-    public Persona getInteresado() {
+    public Interesado getInteresado() {
         return interesado;
     }
 
