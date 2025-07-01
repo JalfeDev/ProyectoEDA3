@@ -12,24 +12,27 @@ package expedientes;
 public class Tramite {
     ///El final es como un read-only, ahorra mas energia
     private final int id;
-    private final int prioridad;
+    private final boolean prioritario;
     private final Persona interesado;
     private final String asunto;
+    private final Documento documento;
     //Documento de referencia
     
     private final Fecha inicioTramite;
     private final Fecha finTramite;
     //Documentos, producto del trámite documentario
 
-    public Tramite() {
-        this.id = 0;
-        this.prioridad = 0;
-        this.interesado = null;
-        this.asunto = "";
-        
-        this.inicioTramite = null;
-        this.finTramite = null;
+    public Tramite(int id, boolean prioritario, Persona interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
+        this.id = id;
+        this.prioritario = prioritario;
+        this.interesado = interesado;
+        this.asunto = asunto;
+        this.documento = documento;
+        this.inicioTramite = inicioTramite;
+        this.finTramite = finTramite;
     }
+    
+    
     
     
 }

@@ -9,6 +9,9 @@ package expedientes;
  * @author Juan Gustavo Loyola
  */
 public class Administrador {
+    public static String userAdm = "admin";
+    public static String passwordAdm = "1234";
+    
     //a. Registrar ingreso del expediente.
     //b. Registrar el movimiento del expediente.
     //c. Registrar finalización del trámite del expediente. 
