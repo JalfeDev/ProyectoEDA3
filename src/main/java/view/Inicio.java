@@ -4,6 +4,9 @@
  */
 package view;
 
+import expedientes.Administrador;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author N04117
@@ -13,8 +16,11 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    public Bienvenido ventanaWelcome;
+    
     public Inicio() {
         initComponents();
+        ventanaWelcome = null;
     }
 
     /**
@@ -61,7 +67,7 @@ public class Inicio extends javax.swing.JFrame {
 
         tfPassword.setText("jPasswordField1");
 
-        tfUser.setText("Ingrese su nombre de usuario");
+        tfUser.setText("admin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +125,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
@@ -130,8 +136,21 @@ public class Inicio extends javax.swing.JFrame {
         for (char c : password) {
             strPassword += c;
         }
-        System.out.println("User: " + user);
-        System.out.println("Password: " + strPassword);
+        //System.out.println("User: " + user);
+        //System.out.println("Password: " + strPassword);
+        if (user.equals(Administrador.userAdm) && strPassword.equals(Administrador.passwordAdm)){
+            if (ventanaWelcome == null){
+                ventanaWelcome = new Bienvenido(this);
+                ventanaWelcome.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Ya hay una pestaña", "Titulo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Titulo", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     /**

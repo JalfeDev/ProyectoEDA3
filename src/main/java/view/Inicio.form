@@ -132,7 +132,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfUser">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese su nombre de usuario"/>
+        <Property name="text" type="java.lang.String" value="admin"/>
       </Properties>
     </Component>
   </SubComponents>
