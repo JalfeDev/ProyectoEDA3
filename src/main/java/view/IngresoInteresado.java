@@ -6,6 +6,7 @@ package view;
 
 import expedientes.Administrador;
 import expedientes.Interesado;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +17,18 @@ public class IngresoInteresado extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    private Bienvenido home;
+    private IngresoExp expediente;
+    private int interDNI;
     
     public IngresoInteresado() {
         initComponents();
     }
     
-    public IngresoInteresado(Bienvenido home) {
+    public IngresoInteresado(IngresoExp expediente, int interDNI) {
         initComponents();
-        this.home = home;
+        this.expediente = expediente;
+        this.interDNI = interDNI;
+        lbDNI.setText(interDNI+"");
     }
 
     /**
@@ -50,7 +54,6 @@ public class IngresoInteresado extends javax.swing.JFrame {
         btnExit = new javax.swing.JToggleButton();
         btnAccept = new javax.swing.JToggleButton();
         jLabel6 = new javax.swing.JLabel();
-        tfDNI = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -58,8 +61,9 @@ public class IngresoInteresado extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         tfTelefono = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdbULima = new javax.swing.JRadioButton();
+        rdbExterno = new javax.swing.JRadioButton();
+        lbDNI = new javax.swing.JLabel();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -89,13 +93,6 @@ public class IngresoInteresado extends javax.swing.JFrame {
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("DNI");
-
-        tfDNI.setText("123...");
-        tfDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfDNIActionPerformed(evt);
-            }
-        });
 
         tfNombre.setText("...");
         tfNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -130,17 +127,19 @@ public class IngresoInteresado extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("ULima");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdbULima);
+        rdbULima.setText("ULima");
+        rdbULima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rdbULimaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setSelected(true);
-        jRadioButton2.setText("Externo");
+        buttonGroup1.add(rdbExterno);
+        rdbExterno.setSelected(true);
+        rdbExterno.setText("Externo");
+
+        lbDNI.setText("123");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,12 +152,12 @@ public class IngresoInteresado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(tfNombre)))
+                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -179,9 +178,9 @@ public class IngresoInteresado extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(rdbULima)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
+                                .addComponent(rdbExterno))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addComponent(jLabel1)))
@@ -194,11 +193,12 @@ public class IngresoInteresado extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbDNI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,14 +208,14 @@ public class IngresoInteresado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2))
+                        .addComponent(rdbULima)
+                        .addComponent(rdbExterno))
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnAccept))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -223,27 +223,32 @@ public class IngresoInteresado extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
+        expediente.SetCreandoPersona(false);
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        String dni      = tfDNI.getText();
         String nombre   = tfNombre.getText();
         String email    = tfEmail.getText();
-        String telefono    = tfTelefono.getText();
-        //String trabajo  = tfTrabajo.getText();
+        String Stelefono = tfTelefono.getText();
+        String trabajo  = (rdbULima.isSelected()) ? "ULima":"Externo";
+        int telefono;
         try{
-            
+            telefono = Integer.parseInt(Stelefono);
         }
         catch (NumberFormatException e){
-            
+            telefono = -1;
         }
-        
-        //Interesado interesado = new Interesado(nombre, dni, telefono, email, trabajo);
+        if (telefono < 0){
+            JOptionPane.showMessageDialog(null, "Error\nNumero de telefono invalido", "Titulo", JOptionPane.ERROR_MESSAGE);
+        }
+        //Agregamos
+        Interesado interesado = new Interesado(nombre, interDNI, telefono, email, trabajo);
+        Administrador.listaInteresados.agregar(interesado);
+        Administrador.listaDNI.agregar(interDNI);
+        expediente.SetCreandoPersona(false);
+        this.dispose();
     }//GEN-LAST:event_btnAcceptActionPerformed
-
-    private void tfDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDNIActionPerformed
 
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
         // TODO add your handling code here:
@@ -257,9 +262,9 @@ public class IngresoInteresado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEmailActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rdbULimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbULimaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rdbULimaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,9 +327,9 @@ public class IngresoInteresado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField tfDNI;
+    private javax.swing.JLabel lbDNI;
+    private javax.swing.JRadioButton rdbExterno;
+    private javax.swing.JRadioButton rdbULima;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JTextField tfTelefono;

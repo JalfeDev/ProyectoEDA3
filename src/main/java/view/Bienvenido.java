@@ -17,7 +17,7 @@ public class Bienvenido extends javax.swing.JFrame {
      */
     
     public boolean creoVentana;
-    public Inicio ventanaIni;;
+    public Inicio ventanaIni;
     
     public Bienvenido() {
         initComponents();
@@ -33,7 +33,7 @@ public class Bienvenido extends javax.swing.JFrame {
     public void SetCreoVentana(boolean b){
         creoVentana = b;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,10 +104,6 @@ public class Bienvenido extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(351, Short.MAX_VALUE)
-                .addComponent(btnExit)
-                .addGap(41, 41, 41))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,8 +116,9 @@ public class Bienvenido extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnRegNewExp)
                             .addGap(18, 18, 18)
-                            .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,9 +135,9 @@ public class Bienvenido extends javax.swing.JFrame {
                     .addComponent(btnFinRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnExit)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -148,8 +145,14 @@ public class Bienvenido extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        ventanaIni.ventanaWelcome = null;
-        this.dispose();
+        if (creoVentana){
+            Inicio.AdvertirError("Hay una venta abierta", "");
+        }
+        else{
+            ventanaIni.ventanaWelcome = null;
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnRegNewExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegNewExpActionPerformed
