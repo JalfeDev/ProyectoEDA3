@@ -16,6 +16,7 @@ public class IngresoExp extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     private Bienvenido home;
+    private boolean creandoPersona;
             
     public IngresoExp() {
         initComponents();
@@ -24,8 +25,13 @@ public class IngresoExp extends javax.swing.JFrame {
     public IngresoExp(Bienvenido home) {
         initComponents();
         this.home = home;
+        this.creandoPersona = false;
     }
-
+    
+    public void SetCreandoPersona(boolean b){
+        this.creandoPersona = b;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,13 +249,18 @@ public class IngresoExp extends javax.swing.JFrame {
             dni = Integer.parseInt(tfDNI.getText());
         }
         catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error\nNo es un numero", "Titulo", JOptionPane.ERROR_MESSAGE);
+            dni = -1;
         }
-        if (dni < 0){
+        if (dni < 0 && !creandoPersona){
             JOptionPane.showMessageDialog(null, "Error\nNo es un numero", "Titulo", JOptionPane.ERROR_MESSAGE);
         }
         else{
             //Buscar el dni en la lista de expedientes
+            if (!creandoPersona){
+                IngresoInteresado ventanaPersona = new IngresoInteresado(this);
+                ventanaPersona.setVisible(true);
+                creandoPersona = true;
+            }
         }
         
     }//GEN-LAST:event_btnRegInteresadoActionPerformed

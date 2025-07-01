@@ -17,7 +17,9 @@ public class Administrador {
     
     public static Lista<Integer> listaDNI = new Lista<>();
     public static Lista<Interesado> listaInteresados = new Lista<>();
-    public static Lista<Dependencia> listaDependencias = new Lista<>();
+    
+    //Esto ira en la clase AdminOficinas
+    //public static Lista<Dependencia> listaDependencias = new Lista<>();
     
     //a. Registrar ingreso del expediente.
     //b. Registrar el movimiento del expediente.
