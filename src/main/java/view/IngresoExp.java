@@ -5,6 +5,10 @@
 package view;
 
 import expedientes.Administrador;
+import expedientes.Documento;
+import expedientes.Fecha;
+import expedientes.Interesado;
+import expedientes.Tramite;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +23,9 @@ public class IngresoExp extends javax.swing.JFrame {
     private Bienvenido home;
     private boolean creandoPersona;
     private boolean registrado;
+    
+    private Fecha inicioTramite;
+    private Fecha finTramite;
             
     public IngresoExp() {
         initComponents();
@@ -29,6 +36,9 @@ public class IngresoExp extends javax.swing.JFrame {
         this.home = home;
         this.creandoPersona = false;
         this.registrado = false;
+        
+        this.inicioTramite = null;
+        this.finTramite = null;
     }
     
     public void SetCreandoPersona(boolean b){
@@ -66,7 +76,7 @@ public class IngresoExp extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tfDNI = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chbPrioridad = new javax.swing.JCheckBox();
         btnRegInteresado = new javax.swing.JToggleButton();
         lbYaRegistrado = new javax.swing.JLabel();
 
@@ -101,7 +111,7 @@ public class IngresoExp extends javax.swing.JFrame {
             }
         });
 
-        tfID.setText("123...");
+        tfID.setText("abc123...");
         tfID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIDActionPerformed(evt);
@@ -136,9 +146,9 @@ public class IngresoExp extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        chbPrioridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                chbPrioridadActionPerformed(evt);
             }
         });
 
@@ -179,7 +189,7 @@ public class IngresoExp extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, 0)
-                                        .addComponent(jCheckBox1)))
+                                        .addComponent(chbPrioridad)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +221,7 @@ public class IngresoExp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(chbPrioridad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +251,7 @@ public class IngresoExp extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
         if (creandoPersona){
-            Inicio.AdvertirError("Hay una venta abierta", "");
+            Administrador.AdvertirError("Hay una venta abierta", "");
         }
         else{
             home.SetCreoVentana(false);
@@ -251,21 +261,17 @@ public class IngresoExp extends javax.swing.JFrame {
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         if (!registrado){
-            Inicio.AdvertirError("Aun no estas registrado", "");
-            return;
-        }
-        int id = -1;
-        try {   
-            id = Integer.parseInt(tfID.getText());
-        }
-        catch (NumberFormatException e) {
-            id = -1;
-        }
-        if (id <= 0){
-            Inicio.AdvertirError("Numero menor a 0 o invalido", "");
+            Administrador.AdvertirError("Aun no estas registrado", "");
         }
         else{
-            ///Crear expediente
+            int posDNI = Administrador.BuscarDNI(Integer.parseInt(tfDNI.getText()));
+            Interesado interesado = Administrador.listaInteresados.iesimo(posDNI);
+            Documento doc = new Documento(tfDocumento.getText());
+            Tramite tramite = new Tramite(tfID.getText(), chbPrioridad.isSelected(), interesado, tfAsunto.getText(), doc, inicioTramite, finTramite);
+            Administrador.listaTramites.agregar(tramite);
+            
+            JOptionPane.showMessageDialog(null, "Se creo el expediente");
+            this.dispose();
         }
         
     }//GEN-LAST:event_btnAcceptActionPerformed
@@ -282,9 +288,9 @@ public class IngresoExp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDNIActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void chbPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbPrioridadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_chbPrioridadActionPerformed
 
     private void btnRegInteresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegInteresadoActionPerformed
         int dni = -1;
@@ -299,10 +305,10 @@ public class IngresoExp extends javax.swing.JFrame {
         }
         
         if (dni < 0){
-            Inicio.AdvertirError("Numero invalido", "");
+            Administrador.AdvertirError("Numero invalido", "");
         }
         else{
-            int posDNI = Administrador.listaDNI.ubicacion(dni);
+            int posDNI = Administrador.BuscarDNI(dni);
             if (posDNI == -1){
                 int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION);
                 if (respuesta == JOptionPane.YES_OPTION){
@@ -359,7 +365,7 @@ public class IngresoExp extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnAccept;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JToggleButton btnRegInteresado;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chbPrioridad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

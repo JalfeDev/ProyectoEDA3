@@ -113,7 +113,7 @@ public class IngresoInteresado extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Lugar de trabajo");
 
-        tfTelefono.setText("123 123 123");
+        tfTelefono.setText("123123123");
         tfTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTelefonoActionPerformed(evt);
@@ -240,13 +240,14 @@ public class IngresoInteresado extends javax.swing.JFrame {
             telefono = -1;
         }
         if (telefono < 0){
-            JOptionPane.showMessageDialog(null, "Error\nNumero de telefono invalido", "Titulo", JOptionPane.ERROR_MESSAGE);
+            Administrador.AdvertirError("Numero de telefono invalido","");
         }
         //Agregamos
         Interesado interesado = new Interesado(nombre, interDNI, telefono, email, trabajo);
         Administrador.listaInteresados.agregar(interesado);
-        Administrador.listaDNI.agregar(interDNI);
         expediente.SetCreandoPersona(false);
+        
+        JOptionPane.showMessageDialog(null, "Se registraron los datos del interesado");
         this.dispose();
     }//GEN-LAST:event_btnAcceptActionPerformed
 

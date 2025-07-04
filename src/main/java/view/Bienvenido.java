@@ -4,6 +4,7 @@
  */
 package view;
 
+import expedientes.Administrador;
 import javax.swing.JOptionPane;
 
 /**
@@ -130,9 +131,9 @@ public class Bienvenido extends javax.swing.JFrame {
                     .addComponent(btnRegNewExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInfInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFinRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFinRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInfInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
@@ -146,7 +147,7 @@ public class Bienvenido extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
         if (creoVentana){
-            Inicio.AdvertirError("Hay una venta abierta", "");
+            Administrador.AdvertirError("Hay una venta abierta", "");
         }
         else{
             ventanaIni.ventanaWelcome = null;
@@ -157,7 +158,7 @@ public class Bienvenido extends javax.swing.JFrame {
 
     private void btnRegNewExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegNewExpActionPerformed
         if (!creoVentana){
-            IngresoExp ventanaIngExp = new IngresoExp();
+            IngresoExp ventanaIngExp = new IngresoExp(this);
             ventanaIngExp.setVisible(true);
             creoVentana = true;
         }
@@ -165,6 +166,11 @@ public class Bienvenido extends javax.swing.JFrame {
 
     private void btnVerMovExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMovExpActionPerformed
         // TODO add your handling code here:
+        if (!creoVentana){
+            VerMovimientos ventanaMovimientos = new VerMovimientos(this);
+            ventanaMovimientos.setVisible(true);
+            creoVentana = true;
+        }
     }//GEN-LAST:event_btnVerMovExpActionPerformed
 
     private void btnFinRegExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinRegExpActionPerformed

@@ -5,6 +5,7 @@
 package expedientes;
 // PROBANDO TOKEN
 
+import javax.swing.JOptionPane;
 import tda.Lista;
 
 /**
@@ -36,6 +37,20 @@ public class Administrador {
         return -1;
     }
     
+    public static int BuscarTramitePorID(String id){
+        int n = listaTramites.longitud();
+        for (int i = 1; i <= n; i++) {
+            Tramite tramite = listaTramites.iesimo(i);
+            if (tramite.getId().equals(id)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public static void AdvertirError(String texto, String titulo){
+        JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);
+    }
     //Esto ira en la clase AdminOficinas
     //public static Lista<Dependencia> listaDependencias = new Lista<>();
     
