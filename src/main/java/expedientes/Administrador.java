@@ -12,11 +12,29 @@ import tda.Lista;
  * @author Juan Gustavo Loyola
  */
 public class Administrador {
+    //Para Inicio
     public static String userAdm = "admin";
     public static String passwordAdm = "1234";
     
-    public static Lista<Integer> listaDNI = new Lista<>();
+    //Para el Registro de Tramites
     public static Lista<Interesado> listaInteresados = new Lista<>();
+    public static Lista<Tramite> listaTramites = new Lista<>();
+    public static Lista<Tramite> listaTramitesFinalizados = new Lista<>();
+    
+    //Para el Registro de Movimientos
+    public static ADMDependencias admDep = new ADMDependencias();
+    public static ADMMovimientos admMov = new ADMMovimientos();    
+    
+    public static int BuscarDNI(int dni){
+        int n = listaInteresados.longitud();
+        for (int i = 1; i <= n; i++) {
+            Interesado persona = listaInteresados.iesimo(i);
+            if (persona.getDni() == dni){
+                return i;
+            }
+        }
+        return -1;
+    }
     
     //Esto ira en la clase AdminOficinas
     //public static Lista<Dependencia> listaDependencias = new Lista<>();

@@ -13,9 +13,8 @@ public class Dependencia {
     private String nombre;
     //Dueño de la oficina
     private String encargado;
-    //Cada 
+    //Cada oficina tiene un monton de tramites
     private Cola<Tramite> colaTramites;
-    
     //Referencia para el ultimo en la cola
     private Tramite ulitmoTramite;
 

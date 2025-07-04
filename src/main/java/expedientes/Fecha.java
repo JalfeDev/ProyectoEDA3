@@ -8,6 +8,8 @@ package expedientes;
  *
  * @author Juan Gustavo Loyola
  */
+import java.time.LocalDateTime;
+
 public class Fecha {
     private int day;
     private int month;
@@ -15,6 +17,10 @@ public class Fecha {
     private int hora;
     private int minuto;
 
+    public Fecha(){
+        
+    }
+    
     public Fecha(int day, int month, int year, int hora, int minuto) {
         this.day = day;
         this.month = month;
@@ -23,6 +29,15 @@ public class Fecha {
         this.minuto = minuto;
     }
 
+    public void GetFechaActual(){
+        LocalDateTime now = LocalDateTime.now();
+        this.day = now.getDayOfMonth();
+        this.month = now.getMonthValue();
+        this.year = now.getYear();
+        this.hora = now.getHour();
+        this.minuto = now.getMinute();
+    }
+    
     @Override
     public String toString() {
         return String.format(this.day + "/" + this.month + "/" + this.year + "\t" + this.hora + ":" + this.minuto);

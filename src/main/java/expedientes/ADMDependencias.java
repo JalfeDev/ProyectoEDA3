@@ -10,23 +10,14 @@ import tda.*;
  * @author maldo
  */
 public class ADMDependencias {
-    
-    private Lista<Dependencia> ListaDependencias;
+    private final Lista<Dependencia> ListaDependencias;
 
     public ADMDependencias() {
         ListaDependencias = new Lista<>();
     }
 
-    public ADMDependencias(Lista ListaDependencias) {
-        this.ListaDependencias = ListaDependencias;
-    }
-
     public Lista getListaDependencias() {
         return ListaDependencias;
-    }
-
-    public void setListaDependencias(Lista ListaDependencias) {
-        this.ListaDependencias = ListaDependencias;
     }
     
     // Agrega una nueva dependencia si no existe una con el mismo nombre
@@ -40,33 +31,25 @@ public class ADMDependencias {
     }
     
     public Dependencia buscarDependencia(String nombre) {
-    for (int i = 1; i <= ListaDependencias.longitud(); i++) {
-        Dependencia dep = ListaDependencias.iesimo(i);
-        if (dep.getNombre().equalsIgnoreCase(nombre)) {
-            return dep; // Se encontró la dependencia
+        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
+            Dependencia dep = ListaDependencias.iesimo(i);
+            if (dep.getNombre().equalsIgnoreCase(nombre)) {
+                return dep; // Se encontró la dependencia
+            }
         }
+        return null; // No se encontró
     }
-    return null; // No se encontró
-}
     
     public void eliminarDependencia(String nombre) {
-    // Buscamos la posición de la dependencia
-    for (int i = 1; i <= ListaDependencias.longitud(); i++) {
-        Dependencia dep = ListaDependencias.iesimo(i);
-        if (dep.getNombre().equalsIgnoreCase(nombre)) {
-            ListaDependencias.eliminar(i); 
-            System.out.println("Dependencia eliminada: " + nombre);
-            return;
+        // Buscamos la posición de la dependencia
+        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
+            Dependencia dep = ListaDependencias.iesimo(i);
+            if (dep.getNombre().equalsIgnoreCase(nombre)) {
+                ListaDependencias.eliminar(i); 
+                System.out.println("Dependencia eliminada: " + nombre);
+                return;
+            }
         }
+        System.out.println("No se encontró la dependencia con nombre: " + nombre);
     }
-    System.out.println("No se encontró la dependencia con nombre: " + nombre);
-}
-    
-    
-    
-    
-    
-    
-    
-    
 }

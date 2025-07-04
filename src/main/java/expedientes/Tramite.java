@@ -4,6 +4,8 @@
  */
 package expedientes;
 
+import tda.Pila;
+
 /**
  *
  * @author Juan Gustavo Loyola
@@ -21,6 +23,8 @@ public class Tramite {
     
     private final Fecha inicioTramite;
     private final Fecha finTramite;
+    
+    private Pila<Dependencia> historialMovimientos;
     //Documentos, producto del trámite documentario
 
     public Tramite(String id, boolean prioritario, Interesado interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
@@ -32,6 +36,7 @@ public class Tramite {
         this.finalizado = false;
         this.inicioTramite = inicioTramite;
         this.finTramite = finTramite;
+        this.historialMovimientos = new Pila<>();
     }
 
     public String getId() {

@@ -24,6 +24,8 @@ public class Interesado {
         this.email = email;
         this.trabajo = trabajo;
     }
-    
-    
+
+    public int getDni() {
+        return dni;
+    }
 }
