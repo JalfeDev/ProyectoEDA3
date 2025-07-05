@@ -183,7 +183,11 @@ public class Bienvenido extends javax.swing.JFrame {
 
     private void btnCrearDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearDepActionPerformed
         // TODO add your handling code here:
-        
+        if (!creoVentana){
+            IngresoDependencia ventanaCrearDep = new IngresoDependencia(this);
+            ventanaCrearDep.setVisible(true);
+            creoVentana = true;
+        }
     }//GEN-LAST:event_btnCrearDepActionPerformed
 
     /**

@@ -18,30 +18,19 @@ public class Dependencia {
     //Referencia para el ultimo en la cola
     private Tramite ulitmoTramite;
 
-    public Dependencia() {
-        this.colaTramites = new Cola<>();
-    }
-
     public Dependencia(String nombre, String encargado) {
         this.nombre = nombre;
         this.encargado = encargado;
         this.colaTramites = new Cola<>();
+        this.ulitmoTramite = null;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getEncargado() {
         return encargado;
-    }
-
-    public void setEncargado(String encargado) {
-        this.encargado = encargado;
     }
 
     public Cola<Tramite> getColaTramites() {
@@ -55,10 +44,6 @@ public class Dependencia {
 
     public Tramite getUlitmoTramite() {
         return ulitmoTramite;
-    }
-
-    public void setUlitmoTramite(Tramite ulitmoTramite) {
-        this.ulitmoTramite = ulitmoTramite;
     }
      
     //Agregar un expediente a la cola
