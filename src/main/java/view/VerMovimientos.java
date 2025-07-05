@@ -41,7 +41,6 @@ public class VerMovimientos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnExit = new javax.swing.JToggleButton();
-        btnAccept = new javax.swing.JToggleButton();
         tfID = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -66,13 +65,6 @@ public class VerMovimientos extends javax.swing.JFrame {
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
-            }
-        });
-
-        btnAccept.setText("Aceptar");
-        btnAccept.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcceptActionPerformed(evt);
             }
         });
 
@@ -107,8 +99,7 @@ public class VerMovimientos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(302, 302, 302)
-                        .addComponent(btnAccept))
+                        .addGap(373, 373, 373))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -138,9 +129,7 @@ public class VerMovimientos extends javax.swing.JFrame {
                         .addComponent(btnBuscar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExit)
-                    .addComponent(btnAccept))
+                .addComponent(btnExit)
                 .addGap(22, 22, 22))
         );
 
@@ -152,23 +141,6 @@ public class VerMovimientos extends javax.swing.JFrame {
         home.SetCreoVentana(false);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
-
-    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        int id = -1;
-        try {   
-            id = Integer.parseInt(tfID.getText());
-        }
-        catch (NumberFormatException e) {
-            id = -1;
-        }
-        if (id <= 0){
-            Administrador.AdvertirError("Numero menor a 0 o invalido", "");
-        }
-        else{
-            ///Crear expediente
-        }
-        
-    }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void tfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDActionPerformed
         String id = tfID.getText();
@@ -220,7 +192,6 @@ public class VerMovimientos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAccept;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JLabel jLabel1;

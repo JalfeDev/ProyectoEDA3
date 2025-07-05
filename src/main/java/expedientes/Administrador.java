@@ -10,7 +10,7 @@ import tda.Lista;
 
 /**
  *
- * @author Juan Gustavo Loyola
+ * @author juan
  */
 public class Administrador {
     //Para Inicio

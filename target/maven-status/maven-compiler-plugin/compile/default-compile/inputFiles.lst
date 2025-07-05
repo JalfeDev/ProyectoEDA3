@@ -6,7 +6,6 @@ C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\ja
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\expedientes\Fecha.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\expedientes\Interesado.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\expedientes\Movimiento.java
-C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\expedientes\MovimientoDependencias.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\expedientes\Tramite.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\tda\ArbolBinario.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\tda\Cola.java
@@ -18,10 +17,8 @@ C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\ja
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\tda\NodoAB.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\tda\NodoDoble.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\tda\Pila.java
-C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\test\Main.java
-C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\test\TareaCola.java
-C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\test\TareaPila.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\view\Bienvenido.java
+C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\view\IngresoDependencia.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\view\IngresoExp.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\view\IngresoInteresado.java
 C:\Users\Juan Gustavo Loyola\Documents\NetBeansProjects\ProyectoEDA3\src\main\java\view\Inicio.java
