@@ -21,13 +21,12 @@ public class ADMDependencias {
     }
     
     // Agrega una nueva dependencia si no existe una con el mismo nombre
-    public void crearDependencia(Dependencia dependencia) {
+    public boolean crearDependencia(Dependencia dependencia) {
         if (buscarDependencia(dependencia.getNombre()) == null) {
             ListaDependencias.agregar(dependencia);
-            System.out.println("Dependencia agregada: " + dependencia.getNombre());
-        } else {
-            System.out.println("Ya existe una dependencia con ese nombre.");
+            return true;
         }
+        return false;
     }
     
     public Dependencia buscarDependencia(String nombre) {
@@ -51,5 +50,14 @@ public class ADMDependencias {
             }
         }
         System.out.println("No se encontró la dependencia con nombre: " + nombre);
+    }
+
+    public String nombrarDependencias(){
+        String temp = "";
+        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
+            Dependencia dep = ListaDependencias.iesimo(i);
+            temp += dep.getNombre() + " - " + dep.getEncargado() + "\n";
+        }
+        return temp;
     }
 }

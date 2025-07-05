@@ -5,6 +5,7 @@
 package view;
 
 import expedientes.Administrador;
+import expedientes.Dependencia;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,11 @@ public class IngresoDependencia extends javax.swing.JFrame {
     public IngresoDependencia(Bienvenido home) {
         initComponents();
         this.home = home;
+        ChangeTextArea(Administrador.admDep.nombrarDependencias());
+    }
+    
+    private void ChangeTextArea(String txt){
+        tfListaDep.setText(txt);
     }
     
     /**
@@ -43,10 +49,10 @@ public class IngresoDependencia extends javax.swing.JFrame {
         btnExit = new javax.swing.JToggleButton();
         btnAccept = new javax.swing.JToggleButton();
         tfEncargado = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tfListaDep = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         tfNombre = new javax.swing.JTextField();
 
@@ -86,10 +92,10 @@ public class IngresoDependencia extends javax.swing.JFrame {
             }
         });
 
-        btnBuscar.setText("Crear");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -97,11 +103,11 @@ public class IngresoDependencia extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Lista de dependencias");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(10);
-        jTextArea1.setRows(5);
-        jTextArea1.setDisabledTextColor(new java.awt.Color(190, 190, 190));
-        jScrollPane1.setViewportView(jTextArea1);
+        tfListaDep.setEditable(false);
+        tfListaDep.setColumns(10);
+        tfListaDep.setRows(5);
+        tfListaDep.setDisabledTextColor(new java.awt.Color(190, 190, 190));
+        jScrollPane1.setViewportView(tfListaDep);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Encargado");
@@ -137,7 +143,7 @@ public class IngresoDependencia extends javax.swing.JFrame {
                                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnBuscar)
+                                .addComponent(btnCrear)
                                 .addGap(79, 79, 79)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -173,7 +179,7 @@ public class IngresoDependencia extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
+                        .addComponent(btnCrear)
                         .addGap(131, 131, 131))))
         );
 
@@ -199,9 +205,20 @@ public class IngresoDependencia extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tfNombreActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        String nombre = tfNombre.getText();
+        String encargado = tfEncargado.getText();
+        
+        Dependencia dependencia = new Dependencia(nombre,encargado);
+        boolean seCreo = Administrador.admDep.crearDependencia(dependencia);
+        if (seCreo){
+            JOptionPane.showMessageDialog(null, "Se creo la dependencia");
+            ChangeTextArea(Administrador.admDep.nombrarDependencias());
+        }
+        else{
+            Administrador.AdvertirError("Error:\nLa dependencia ya existe", "");
+        }
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,7 +272,7 @@ public class IngresoDependencia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAccept;
-    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -264,8 +281,8 @@ public class IngresoDependencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField tfEncargado;
+    private javax.swing.JTextArea tfListaDep;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }
