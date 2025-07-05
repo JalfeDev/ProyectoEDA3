@@ -17,7 +17,7 @@ public class ADMDependencias {
         listaDependencias.agregar(new Dependencia("Oficina Central","ULima"));
     }
 
-    public Lista getListaDependencias() {
+    public Lista<Dependencia> getListaDependencias() {
         return listaDependencias;
     }
     

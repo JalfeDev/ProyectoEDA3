@@ -25,7 +25,6 @@ public class Tramite {
     private final Fecha finTramite;
     
     private final Pila<Movimiento> historialMovimientos;
-    //Documentos, producto del trámite documentario
 
     public Tramite(String id, boolean prioritario, Interesado interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
         this.id = id;

@@ -264,10 +264,14 @@ public class IngresoExp extends javax.swing.JFrame {
             Administrador.AdvertirError("Aun no estas registrado", "");
         }
         else{
+            //Crear el tramite
             int posDNI = Administrador.BuscarDNI(Integer.parseInt(tfDNI.getText()));
             Interesado interesado = Administrador.listaInteresados.iesimo(posDNI);
             Documento doc = new Documento(tfDocumento.getText());
             Tramite tramite = new Tramite(tfID.getText(), chbPrioridad.isSelected(), interesado, tfAsunto.getText(), doc, inicioTramite, finTramite);
+            
+            Administrador.admMov.setTramiteReg(tramite);
+            Administrador.admMov.agregarMovimientoInicial(finTramite);
             Administrador.listaTramites.agregar(tramite);
             
             JOptionPane.showMessageDialog(null, "Se creo el expediente");

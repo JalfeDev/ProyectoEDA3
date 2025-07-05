@@ -40,7 +40,8 @@ public class Dependencia {
     public Tramite getUlitmoTramite() {
         return ulitmoTramite;
     }
-     
+
+    
     //Agregar un expediente a la cola
     public void agregarExpediente(Tramite tramite){
         if(tramite.esPrioritario()){
