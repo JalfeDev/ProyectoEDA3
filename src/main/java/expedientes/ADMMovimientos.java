@@ -9,41 +9,33 @@ import tda.*;
  * @author maldo
  */
 public class ADMMovimientos {
-    private String idTramite;
-    private Pila<Movimiento> historialMovimientos;
+    //El tramite a cambiar
+    Tramite tramiteReg;
+    //Esta variable sera para acortar el "tramiteReg.getHistorialMov()"
+    Pila<Movimiento> historialMov;
+    
     
     public ADMMovimientos() {
-        historialMovimientos = new Pila<>();
+        this.tramiteReg = null;
+        this.historialMov = null;
     }
 
-    public ADMMovimientos(String idTramite) {
-        this.idTramite = idTramite;
-        historialMovimientos = new Pila<>();
-    }
-    
-    public String getIdTramite() {
-        return idTramite;
-    }
-
-    public void setIdTramite(String idTramite) {
-        this.idTramite = idTramite;
-    }
-
-    public Pila<Movimiento> getHistorialDependencias() {
-        return historialMovimientos;
+    public void setTramiteReg(Tramite tramiteARegistrar) {
+        this.tramiteReg = tramiteARegistrar;
+        this.historialMov = this.tramiteReg.getHistorialMov();
     }
      
     public void agregarMovimiento(Movimiento move){
-        historialMovimientos.apilar(move);
+        tramiteReg.getHistorialMov().apilar(move);
     }
     
     //No usaremos print, pero podemos usarlo luego
     public void mostrarHistorial(){
-        System.out.println("Historial del tramite " +idTramite + ":");
+        System.out.println("Historial del tramite " +tramiteReg.getId() + ":");
         Pila<Movimiento> aux = new Pila<>();
         // Copiamos y mostramos los elementos
-        while (!historialMovimientos.esVacia()) {
-            Movimiento mov = historialMovimientos.desapilar();
+        while (!historialMov.esVacia()) {
+            Movimiento mov = historialMov.desapilar();
             System.out.print(mov.getLugar() + " <- ");
             aux.apilar(mov);
         }
@@ -51,7 +43,7 @@ public class ADMMovimientos {
 
         // Restauramos la pila original
         while (!aux.esVacia()) {
-            historialMovimientos.apilar(aux.desapilar());
+            historialMov.apilar(aux.desapilar());
         }
     }
 

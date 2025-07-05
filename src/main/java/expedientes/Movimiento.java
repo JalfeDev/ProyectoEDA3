@@ -18,12 +18,6 @@ public class Movimiento {
         this.lugar = lugar;
         this.fechaSalida = fechaSalida;
     }
-    
-    public Movimiento() {
-        this.fechaEntrada = null;
-        this.lugar = null;
-        this.fechaSalida = null;
-    }
 
     public Fecha getFechaEntrada() {
         return fechaEntrada;

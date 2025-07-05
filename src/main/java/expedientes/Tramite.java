@@ -24,7 +24,7 @@ public class Tramite {
     private final Fecha inicioTramite;
     private final Fecha finTramite;
     
-    private Pila<Dependencia> historialMovimientos;
+    private final Pila<Movimiento> historialMovimientos;
     //Documentos, producto del trámite documentario
 
     public Tramite(String id, boolean prioritario, Interesado interesado, String asunto, Documento documento, Fecha inicioTramite, Fecha finTramite) {
@@ -42,45 +42,34 @@ public class Tramite {
     public String getId() {
         return id;
     }
-
-    public boolean isPrioritario() {
+    public boolean esPrioritario(){
         return prioritario;
     }
-
     public Interesado getInteresado() {
         return interesado;
     }
-
     public String getAsunto() {
         return asunto;
     }
-
     public Documento getDocumento() {
         return documento;
     }
-
-    public boolean isFinalizado() {
+    public boolean esFinalizado() {
         return finalizado;
     }
 
     public Fecha getInicioTramite() {
         return inicioTramite;
     }
-
     public Fecha getFinTramite() {
         return finTramite;
     }
-    public boolean esPrioritario(){
-        return prioritario;
-    }   
+    public Pila<Movimiento> getHistorialMov(){
+        return historialMovimientos;
+    }
     
-    public void finExpediente(){
+    public void finalizarExpediente(){
         this.finalizado = true;
     }
-   
-    
-    
-    
-    
-    
+ 
 }

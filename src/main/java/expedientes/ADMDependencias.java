@@ -10,28 +10,29 @@ import tda.*;
  * @author maldo
  */
 public class ADMDependencias {
-    private final Lista<Dependencia> ListaDependencias;
+    private final Lista<Dependencia> listaDependencias;
 
     public ADMDependencias() {
-        ListaDependencias = new Lista<>();
+        listaDependencias = new Lista<>();
+        listaDependencias.agregar(new Dependencia("Oficina Central","ULima"));
     }
 
     public Lista getListaDependencias() {
-        return ListaDependencias;
+        return listaDependencias;
     }
     
     // Agrega una nueva dependencia si no existe una con el mismo nombre
     public boolean crearDependencia(Dependencia dependencia) {
         if (buscarDependencia(dependencia.getNombre()) == null) {
-            ListaDependencias.agregar(dependencia);
+            listaDependencias.agregar(dependencia);
             return true;
         }
         return false;
     }
     
     public Dependencia buscarDependencia(String nombre) {
-        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
-            Dependencia dep = ListaDependencias.iesimo(i);
+        for (int i = 1; i <= listaDependencias.longitud(); i++) {
+            Dependencia dep = listaDependencias.iesimo(i);
             if (dep.getNombre().equalsIgnoreCase(nombre)) {
                 return dep; // Se encontró la dependencia
             }
@@ -41,10 +42,10 @@ public class ADMDependencias {
     
     public void eliminarDependencia(String nombre) {
         // Buscamos la posición de la dependencia
-        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
-            Dependencia dep = ListaDependencias.iesimo(i);
+        for (int i = 1; i <= listaDependencias.longitud(); i++) {
+            Dependencia dep = listaDependencias.iesimo(i);
             if (dep.getNombre().equalsIgnoreCase(nombre)) {
-                ListaDependencias.eliminar(i); 
+                listaDependencias.eliminar(i); 
                 System.out.println("Dependencia eliminada: " + nombre);
                 return;
             }
@@ -54,8 +55,8 @@ public class ADMDependencias {
 
     public String nombrarDependencias(){
         String temp = "";
-        for (int i = 1; i <= ListaDependencias.longitud(); i++) {
-            Dependencia dep = ListaDependencias.iesimo(i);
+        for (int i = 1; i <= listaDependencias.longitud(); i++) {
+            Dependencia dep = listaDependencias.iesimo(i);
             temp += dep.getNombre() + " - " + dep.getEncargado() + "\n";
         }
         return temp;

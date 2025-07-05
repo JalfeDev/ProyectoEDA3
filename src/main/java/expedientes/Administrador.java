@@ -21,11 +21,6 @@ public class Administrador {
     public static Lista<Interesado> listaInteresados = new Lista<>();
     public static Lista<Tramite> listaTramites = new Lista<>();
     public static Lista<Tramite> listaTramitesFinalizados = new Lista<>();
-    
-    //Para el Registro de Movimientos
-    public static ADMDependencias admDep = new ADMDependencias();
-    public static ADMMovimientos admMov = new ADMMovimientos();    
-    
     public static int BuscarDNI(int dni){
         int n = listaInteresados.longitud();
         for (int i = 1; i <= n; i++) {
@@ -36,7 +31,6 @@ public class Administrador {
         }
         return -1;
     }
-    
     public static int BuscarTramitePorID(String id){
         int n = listaTramites.longitud();
         for (int i = 1; i <= n; i++) {
@@ -47,6 +41,11 @@ public class Administrador {
         }
         return -1;
     }
+    
+    //Para el Registro de Movimientos
+    public static ADMDependencias admDep = new ADMDependencias();
+    public static ADMMovimientos admMov = new ADMMovimientos();    
+    
     
     public static void AdvertirError(String texto, String titulo){
         JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);

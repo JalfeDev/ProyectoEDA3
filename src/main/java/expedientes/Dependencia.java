@@ -10,9 +10,9 @@ import tda.Cola;
  */
 public class Dependencia {
     //Oficina
-    private String nombre;
+    private final String nombre;
     //Dueño de la oficina
-    private String encargado;
+    private final String encargado;
     //Cada oficina tiene un monton de tramites
     private Cola<Tramite> colaTramites;
     //Referencia para el ultimo en la cola
@@ -35,11 +35,6 @@ public class Dependencia {
 
     public Cola<Tramite> getColaTramites() {
         return colaTramites;
-    }
-
-    //No sera necesario
-    public void setColaTramites(Cola<Tramite> colaTramites) {
-        this.colaTramites = colaTramites;
     }
 
     public Tramite getUlitmoTramite() {
@@ -139,7 +134,7 @@ public class Dependencia {
         while (!colaTramites.esVacia()) {
             Tramite tramite = colaTramites.desencolar();
             if (tramite.getId().equalsIgnoreCase(id)) {
-                tramite.finExpediente(); // Llama al método para finalizar el expediente
+                tramite.finalizarExpediente(); // Llama al método para finalizar el expediente
             }
             aux.encolar(tramite); // Reconstruimos la cola
         }
