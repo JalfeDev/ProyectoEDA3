@@ -37,7 +37,7 @@ public class ADMDependencias {
                 return dep; // Se encontró la dependencia
             }
         }
-        return null; // No se encontró
+        return null;
     }
     
     public void eliminarDependencia(String nombre) {
