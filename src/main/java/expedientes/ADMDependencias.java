@@ -17,7 +17,19 @@ public class ADMDependencias {
         arbolDependencias.crearRaiz(new Dependencia("Oficina Central","ULima"));
     }
     
-    // Agrega una nueva dependencia si no existe una con el mismo nombre
+    //Obtener el primer lugar en el que todos los expedientes se crearon
+    public Dependencia getDependenciaInicial(){
+        return arbolDependencias.getRaiz().getItem();
+    }
+    
+    //Obtener el ultimo lugar del tramite
+    public Dependencia getDependenciaFinal(Tramite tramite){
+        Movimiento last = tramite.getHistorialMov().desapilar();
+        tramite.getHistorialMov().apilar(last);
+        return last.getLugar();
+    }
+    
+    
     //Es un recorrido por niveles (BFS)
     public boolean crearDependencia(Dependencia dependencia) {
         if (buscarDependencia(dependencia.getNombre()) != null) {
@@ -44,10 +56,6 @@ public class ADMDependencias {
             }
         }
         return true;
-    }
-    
-    public Dependencia getDependenciaInicial(){
-        return arbolDependencias.getRaiz().getItem();
     }
     
     public Dependencia buscarDependencia(String nombre) {

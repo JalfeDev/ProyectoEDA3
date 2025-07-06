@@ -73,17 +73,17 @@ public class Administrador {
     public static ADMDependencias admDep = new ADMDependencias();
     public static ADMMovimientos admMov = new ADMMovimientos();    
     public static void FinalizarTramite(int posID){
+        //Finalizar el tramite en Admin
         Tramite tramite = listaTramites.iesimo(posID);
         tramite.finalizarExpediente();
         listaTramites.eliminar(posID);
         listaTramitesFinalizados.agregar(tramite);
+        //Finalizar el tramite en ADMDependencias
+        Dependencia ultimoLugar = admDep.getDependenciaFinal(tramite);
+        ultimoLugar.finalizarExpediente(tramite.getId());
     }
     
     public static void AdvertirError(String texto, String titulo){
         JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);
     }
-
-    //a. Registrar ingreso del expediente.
-    //b. Registrar el movimiento del expediente.
-    //d. Puede proporcionar al interesado el seguimiento de su trámite.
 }

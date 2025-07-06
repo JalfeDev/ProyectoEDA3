@@ -5,6 +5,7 @@
 package view;
 
 import expedientes.Administrador;
+import expedientes.Dependencia;
 import expedientes.Documento;
 import expedientes.Fecha;
 import expedientes.Interesado;
@@ -275,10 +276,16 @@ public class IngresoExp extends javax.swing.JFrame {
             Documento doc = new Documento(tfDocumento.getText());
             Tramite tramite = new Tramite(tfID.getText(), chbPrioridad.isSelected(), interesado, tfAsunto.getText(), doc, inicioTramite, finTramite);
             
+            //Agregar el tramite a la cola de la OficinaCentral
+            Dependencia ofCentral = Administrador.admDep.getDependenciaInicial();
+            ofCentral.agregarExpediente(tramite);
+            
+            //Agregar la oficina central a su historial de movimientos
             Administrador.admMov.setTramiteReg(tramite);
             Administrador.admMov.agregarMovimientoInicial(finTramite);
             Administrador.listaTramites.agregar(tramite);
             
+            //Confirmar
             JOptionPane.showMessageDialog(null, "Se creo el expediente");
             home.SetCreoVentana(false);
             this.dispose();

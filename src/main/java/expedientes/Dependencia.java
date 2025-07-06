@@ -4,6 +4,7 @@
  */
 package expedientes;
 import tda.Cola;
+import tda.Pila;
 /**
  *
  * @author maldo
@@ -14,15 +15,18 @@ public class Dependencia {
     //Dueño de la oficina
     private final String encargado;
     //Cada oficina tiene un monton de tramites
-    private Cola<Tramite> colaTramites;
+    private final Cola<Tramite> colaTramites;
+    //Cada oficina tiene un monton de tramites finalizados
+    private final Pila<Tramite> tramitesArchivados;
     //Referencia para el ultimo en la cola
-    private Tramite ulitmoTramite;
+    private Tramite ultimoTramite;
 
     public Dependencia(String nombre, String encargado) {
         this.nombre = nombre;
         this.encargado = encargado;
         this.colaTramites = new Cola<>();
-        this.ulitmoTramite = null;
+        this.ultimoTramite = null;
+        this.tramitesArchivados = new Pila<>();
     }
 
     public String getNombre() {
@@ -33,34 +37,49 @@ public class Dependencia {
         return encargado;
     }
 
-    public Cola<Tramite> getColaTramites() {
-        return colaTramites;
-    }
-
     public Tramite getUlitmoTramite() {
-        return ulitmoTramite;
+        return ultimoTramite;
     }
 
-    
-    //Agregar un expediente a la cola
     public void agregarExpediente(Tramite tramite){
         if(tramite.esPrioritario()){
-            colocarAlFrente(tramite);
+            agregarConPrioridad(tramite);
         }
         else{
             colaTramites.encolar(tramite);
-            this.ulitmoTramite = tramite; //Se actualiza el ultimo tramite
+            ultimoTramite = tramite;
         }
+
     }
-    
-    // Coloca el expediente al principio de la cola
-    private void colocarAlFrente(Tramite tramite) {
-        Cola<Tramite> Cola = new Cola<>();
-        Cola.encolar(tramite); // Se coloca primero el expediente prioritario
-        while (!colaTramites.esVacia()) {
-            Cola.encolar(colaTramites.desencolar()); // Los demás
+
+    private void agregarConPrioridad(Tramite tramite){
+        Cola<Tramite> aux = new Cola<>();
+        Cola<Tramite> auxPriorit = new Cola<>();
+        while(!colaTramites.esVacia()) {
+            Tramite temp = colaTramites.desencolar();
+            if (temp.esPrioritario()){
+                auxPriorit.encolar(temp);
+            }
+            else{
+                aux.encolar(temp);
+            }
         }
-        colaTramites = Cola; // Se reemplaza la cola original
+        if(tramite.esPrioritario()){
+            auxPriorit.encolar(tramite);
+        }
+        else{
+            aux.encolar(tramite);
+        }
+        Tramite t = tramite;
+        while(!auxPriorit.esVacia()){
+            t = auxPriorit.desencolar();
+            colaTramites.encolar(t);
+        }
+        while(!aux.esVacia()){
+            t = aux.desencolar();
+            colaTramites.encolar(t);
+        }
+        ultimoTramite = t;
     }
 
     // Devuelve el primer expediente (FIFO), o null si está vacía
@@ -106,8 +125,9 @@ public class Dependencia {
                 aux.encolar(tramite); // Si no, lo volvemos a meter en la cola
             }
         }
-
-        colaTramites = aux; // Restauramos la cola sin el expediente extraído
+        while(!aux.esVacia()){
+            colaTramites.encolar(aux.desencolar());
+        }
         return encontrado;
     }
 
@@ -123,24 +143,28 @@ public class Dependencia {
             }
             aux.encolar(tramite); // Se mantiene la cola original intacta
         }
-
-        colaTramites = aux;
+        while(!aux.esVacia()){
+            colaTramites.encolar(aux.desencolar());
+        }
         return encontrado;
     }
 
     // Finaliza el expediente con el ID dado (cambia su estado interno)
     public void finalizarExpediente(String id) {
         Cola<Tramite> aux = new Cola<>();
-
         while (!colaTramites.esVacia()) {
             Tramite tramite = colaTramites.desencolar();
             if (tramite.getId().equalsIgnoreCase(id)) {
                 tramite.finalizarExpediente(); // Llama al método para finalizar el expediente
+                tramitesArchivados.apilar(tramite);
             }
-            aux.encolar(tramite); // Reconstruimos la cola
+            else{
+                aux.encolar(tramite); // Reconstruimos la cola
+            }
         }
-
-        colaTramites = aux;
+        while(!aux.esVacia()){
+            colaTramites.encolar(aux.desencolar());
+        }
     }
     
     @Override
