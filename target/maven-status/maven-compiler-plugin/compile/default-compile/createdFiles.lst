@@ -1,3 +1,4 @@
+view\Bienvenido$8.class
 view\IngresoExp$4.class
 view\VerMovimientos$3.class
 expedientes\Documento.class
@@ -25,6 +26,7 @@ view\Bienvenido.class
 view\IngresoExp$3.class
 expedientes\Interesado.class
 tda\Pila.class
+view\InformarInteresado$3.class
 expedientes\Movimiento.class
 tda\NodoDoble.class
 view\FinalizarVentana$1.class
@@ -37,15 +39,18 @@ view\IngresoDependencia.class
 tda\ListaCircularSimple.class
 view\Inicio$2.class
 view\VerMovimientos$5.class
+view\InformarInteresado$5.class
 expedientes\Fecha.class
 view\IngresoInteresado$5.class
 view\Bienvenido$3.class
+view\InformarInteresado.class
 view\IngresoDependencia$4.class
 view\IngresoInteresado$1.class
 expedientes\ADMMovimientos.class
 view\VerMovimientos$2.class
 view\Bienvenido$6.class
 view\IngresoExp$2.class
+view\InformarInteresado$2.class
 view\IngresoInteresado.class
 view\IngresoExp.class
 view\FinalizarVentana$2.class
@@ -60,12 +65,14 @@ view\Bienvenido$2.class
 view\IngresoDependencia$3.class
 view\IngresoExp$7.class
 view\VerMovimientos$4.class
+view\InformarInteresado$4.class
 tda\ArbolBinario.class
 view\IngresoInteresado$7.class
 view\Bienvenido$5.class
 tda\ListaCircularDoble.class
 tda\Lista.class
 view\FinalizarVentana$3.class
+view\InformarInteresado$1.class
 view\IngresoExp$1.class
 view\IngresoMovimiento$1.class
 view\VerMovimientos$1.class

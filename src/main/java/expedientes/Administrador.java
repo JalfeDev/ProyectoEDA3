@@ -83,6 +83,16 @@ public class Administrador {
         ultimoLugar.finalizarExpediente(tramite.getId());
     }
     
+    public static int TryCatchInt(String strVal){
+        int value;
+        try{
+            value = Integer.parseInt(strVal);
+        }
+        catch (NumberFormatException e){
+            value = -1;
+        }
+        return value;
+    }
     public static void AdvertirError(String texto, String titulo){
         JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);
     }

@@ -314,33 +314,25 @@ public class IngresoExp extends javax.swing.JFrame {
     }//GEN-LAST:event_chbPrioridadActionPerformed
 
     private void btnRegInteresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegInteresadoActionPerformed
-        int dni = -1;
-        try {   
-            dni = Integer.parseInt(tfDNI.getText());
-        }
-        catch (NumberFormatException e) {
-            dni = -1;
-        }
         if (creandoPersona){
             return;
         }
-        
-        if (dni < 0){
+        int dni = Administrador.TryCatchInt(tfDNI.getText());
+        if (dni <= 0){
             Administrador.AdvertirError("Numero invalido", "");
+            return;
+        }
+        int posDNI = Administrador.BuscarDNI(dni);
+        if (posDNI == -1){
+            int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION){
+                IngresoInteresado ventanaPersona = new IngresoInteresado(this, dni);
+                ventanaPersona.setVisible(true);
+                creandoPersona = true;
+            }
         }
         else{
-            int posDNI = Administrador.BuscarDNI(dni);
-            if (posDNI == -1){
-                int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION);
-                if (respuesta == JOptionPane.YES_OPTION){
-                    IngresoInteresado ventanaPersona = new IngresoInteresado(this, dni);
-                    ventanaPersona.setVisible(true);
-                    creandoPersona = true;
-                }
-            }
-            else{
-                RegistrarDNI();
-            }
+            RegistrarDNI();
         }
     }//GEN-LAST:event_btnRegInteresadoActionPerformed
 

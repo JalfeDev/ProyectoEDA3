@@ -50,6 +50,7 @@ public class Bienvenido extends javax.swing.JFrame {
         btnVerMovExp = new javax.swing.JToggleButton();
         btnFinRegExp = new javax.swing.JToggleButton();
         btnInfInteresado = new javax.swing.JToggleButton();
+        btnCrearInteresado = new javax.swing.JToggleButton();
         btnCrearDep = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,6 +94,13 @@ public class Bienvenido extends javax.swing.JFrame {
             }
         });
 
+        btnCrearInteresado.setText("Crear interesado");
+        btnCrearInteresado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearInteresadoActionPerformed(evt);
+            }
+        });
+
         btnCrearDep.setText("Crear dependencia");
         btnCrearDep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,16 +116,23 @@ public class Bienvenido extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCrearDep)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFinRegExp)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnInfInteresado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegNewExp)
                         .addGap(18, 18, 18)
                         .addComponent(btnVerMovExp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFinRegExp)
+                            .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(btnInfInteresado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(btnCrearInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(0, 34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,7 +149,9 @@ public class Bienvenido extends javax.swing.JFrame {
                     .addComponent(btnFinRegExp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInfInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCrearInteresado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCrearDep, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btnExit)
                 .addGap(24, 24, 24))
@@ -183,8 +200,16 @@ public class Bienvenido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInfInteresadoActionPerformed
 
+    private void btnCrearInteresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearInteresadoActionPerformed
+        if (!creoVentana){
+            IngresoInteresado ventanaCrearInt = new IngresoInteresado(this);
+            ventanaCrearInt.setVisible(true);
+            creoVentana = true;
+        }
+        
+    }//GEN-LAST:event_btnCrearInteresadoActionPerformed
+
     private void btnCrearDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearDepActionPerformed
-        // TODO add your handling code here:
         if (!creoVentana){
             IngresoDependencia ventanaCrearDep = new IngresoDependencia(this);
             ventanaCrearDep.setVisible(true);
@@ -230,6 +255,7 @@ public class Bienvenido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearDep;
+    private javax.swing.JToggleButton btnCrearInteresado;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JToggleButton btnFinRegExp;
     private javax.swing.JToggleButton btnInfInteresado;

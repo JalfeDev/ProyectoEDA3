@@ -18,17 +18,27 @@ public class IngresoInteresado extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     private IngresoExp expediente;
+    private Bienvenido home;
     private int interDNI;
     
     public IngresoInteresado() {
         initComponents();
     }
     
+    public IngresoInteresado(Bienvenido home) {
+        initComponents();
+        this.expediente = null;
+        this.home = home;
+        this.interDNI = 123;
+    }
+    
     public IngresoInteresado(IngresoExp expediente, int interDNI) {
         initComponents();
         this.expediente = expediente;
+        this.home = null;
         this.interDNI = interDNI;
-        lbDNI.setText(interDNI+"");
+        tfDNI.setText(interDNI+"");
+        tfDNI.setEnabled(false);
     }
 
     /**
@@ -63,7 +73,7 @@ public class IngresoInteresado extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         rdbULima = new javax.swing.JRadioButton();
         rdbExterno = new javax.swing.JRadioButton();
-        lbDNI = new javax.swing.JLabel();
+        tfDNI = new javax.swing.JTextField();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -139,26 +149,26 @@ public class IngresoInteresado extends javax.swing.JFrame {
         rdbExterno.setSelected(true);
         rdbExterno.setText("Externo");
 
-        lbDNI.setText("123");
+        tfDNI.setText("123");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNombre)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -171,8 +181,7 @@ public class IngresoInteresado extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAccept)
-                        .addGap(10, 10, 10))
+                        .addComponent(btnAccept))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -184,8 +193,8 @@ public class IngresoInteresado extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(45, 45, 45))
+                        .addGap(0, 19, Short.MAX_VALUE)))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +203,11 @@ public class IngresoInteresado extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDNI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDNI))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,30 +232,38 @@ public class IngresoInteresado extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        expediente.SetCreandoPersona(false);
+        if (home != null) home.SetCreoVentana(false);
+        else expediente.SetCreandoPersona(false);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         String nombre   = tfNombre.getText();
         String email    = tfEmail.getText();
-        String Stelefono = tfTelefono.getText();
-        String trabajo  = (rdbULima.isSelected()) ? "ULima":"Externo";
-        int telefono;
-        try{
-            telefono = Integer.parseInt(Stelefono);
-        }
-        catch (NumberFormatException e){
-            telefono = -1;
-        }
-        if (telefono < 0){
+        String trabajo;
+        if (rdbULima.isSelected()) trabajo = "Externo";
+        else trabajo = "Externo";
+        
+        int telefono = Administrador.TryCatchInt(tfTelefono.getText());
+        interDNI = Administrador.TryCatchInt(tfDNI.getText());
+        if (telefono <= 0){
             Administrador.AdvertirError("Numero de telefono invalido","");
+            return;
+        }
+        if (interDNI <= 0){
+            Administrador.AdvertirError("Numero de DNI invalido","");
+            return;
+        }
+        if (Administrador.BuscarDNI(interDNI) != -1){
+            Administrador.AdvertirError("Ese numero de DNI ya esta registrado","");
+            return;
         }
         //Agregamos
         Interesado interesado = new Interesado(nombre, interDNI, telefono, email, trabajo);
         Administrador.listaInteresados.agregar(interesado);
-        expediente.SetCreandoPersona(false);
-        
+        //Salimos
+        if (home != null) home.SetCreoVentana(false);
+        else expediente.SetCreandoPersona(false);
         JOptionPane.showMessageDialog(null, "Se registraron los datos del interesado");
         this.dispose();
     }//GEN-LAST:event_btnAcceptActionPerformed
@@ -328,9 +345,9 @@ public class IngresoInteresado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel lbDNI;
     private javax.swing.JRadioButton rdbExterno;
     private javax.swing.JRadioButton rdbULima;
+    private javax.swing.JTextField tfDNI;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JTextField tfTelefono;
