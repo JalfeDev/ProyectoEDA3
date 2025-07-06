@@ -174,7 +174,11 @@ public class Bienvenido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerMovExpActionPerformed
 
     private void btnFinRegExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinRegExpActionPerformed
-        // TODO add your handling code here:
+        if (!creoVentana){
+            FinalizarVentana ventanaFinExp = new FinalizarVentana(this);
+            ventanaFinExp.setVisible(true);
+            creoVentana = true;
+        }
     }//GEN-LAST:event_btnFinRegExpActionPerformed
 
     private void btnInfInteresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfInteresadoActionPerformed
