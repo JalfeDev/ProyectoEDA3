@@ -13,7 +13,7 @@ import tda.ListaCircularSimple;
  * @author Juan Gustavo Loyola
  */
 public class ADMAlertas {
-    private ListaCircularSimple<Tramite> listaAlertas;
+    private final ListaCircularSimple<Tramite> listaAlertas;
     private int numTramComun;
     private int numTramPrioridad;
     //El mas antiguo y/o que tenga prioridad
@@ -30,11 +30,11 @@ public class ADMAlertas {
         //Se repite hasta el infinito cada 30 segundos
         int segundos = 30;
         Timer timer = new Timer(segundos*1000, e -> {
-            VerificarTramitesPendientes();
+            AlertarTramitesPendientes();
         });
         timer.start();
     }
-    private void VerificarTramitesPendientes(){
+    private void AlertarTramitesPendientes(){
         int total = numTramComun+numTramPrioridad;
         if (total > 0){
             String contenido = "Numero de tramites pendientes comunes: "+numTramComun + "\nNumero de tramites pendientes prioritarios: "+numTramPrioridad;
@@ -45,7 +45,7 @@ public class ADMAlertas {
             if (tramiteUrgente.esPrioritario()) esPrioritario = "Tiene prioridad";
             else esPrioritario = "No tiene prioridad";
             contenido = "ID: "+tramiteUrgente.getId() + "\n"+esPrioritario + "\nAsunto: "+tramiteUrgente.getAsunto() + "\nDNI del interesado: "+tramiteUrgente.getInteresado().getDni();
-            JOptionPane.showMessageDialog(null, "Tramite pendiente mas antiguo: "+contenido, "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tramite pendiente mas antiguo\n"+contenido, "", JOptionPane.WARNING_MESSAGE);
         }
     }
     

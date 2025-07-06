@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import tda.Lista;
 import tda.ListaCircularSimple;
+import tda.ListaDoble;
 
 /**
  *
@@ -21,8 +22,8 @@ public class Administrador {
     
     //Para el Registro de Tramites
     public static Lista<Interesado> listaInteresados = new Lista<>();
-    public static Lista<Tramite> listaTramites = new Lista<>();
-    public static Lista<Tramite> listaTramitesFinalizados = new Lista<>();
+    public static ListaDoble<Tramite> listaTramites = new ListaDoble<>();
+    public static ListaDoble<Tramite> listaTramitesFinalizados = new ListaDoble<>();
     public static int BuscarDNI(int dni){
         int n = listaInteresados.longitud();
         for (int i = 1; i <= n; i++) {
