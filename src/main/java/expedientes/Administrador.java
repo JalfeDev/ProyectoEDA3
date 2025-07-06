@@ -46,6 +46,7 @@ public class Administrador {
     public static ADMDependencias admDep = new ADMDependencias();
     public static ADMMovimientos admMov = new ADMMovimientos();    
     
+    
     public static void AdvertirError(String texto, String titulo){
         JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.ERROR_MESSAGE);
     }
