@@ -37,7 +37,7 @@ public class IngresoExp extends javax.swing.JFrame {
         this.creandoPersona = false;
         this.registrado = false;
         
-        this.inicioTramite = null;
+        this.inicioTramite = Fecha.GetFechaActual(-5);
         this.finTramite = null;
     }
     
@@ -168,7 +168,7 @@ public class IngresoExp extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +207,7 @@ public class IngresoExp extends javax.swing.JFrame {
                             .addComponent(btnRegInteresado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDNI)
                             .addComponent(lbYaRegistrado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(15, 32, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,11 +260,16 @@ public class IngresoExp extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        boolean existeID = Administrador.ExisteTramite(tfID.getText());
         if (!registrado){
             Administrador.AdvertirError("Aun no estas registrado", "");
         }
-        else{
+        else if (existeID){
+            Administrador.AdvertirError("El ID del tramite ya existe", "");
+        }
+        else {
             //Crear el tramite
+            finTramite = Fecha.GetFechaActual(0);
             int posDNI = Administrador.BuscarDNI(Integer.parseInt(tfDNI.getText()));
             Interesado interesado = Administrador.listaInteresados.iesimo(posDNI);
             Documento doc = new Documento(tfDocumento.getText());

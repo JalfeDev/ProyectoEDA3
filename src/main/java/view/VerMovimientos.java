@@ -51,6 +51,7 @@ public class VerMovimientos extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableMoves = new javax.swing.JTable();
+        lbEstado = new javax.swing.JLabel();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -106,6 +107,10 @@ public class VerMovimientos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableMoves);
 
+        lbEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbEstado.setText("Estado:");
+        lbEstado.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,9 +122,10 @@ public class VerMovimientos extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -138,7 +144,9 @@ public class VerMovimientos extends javax.swing.JFrame {
                             .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar))
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btnExit)
@@ -159,31 +167,33 @@ public class VerMovimientos extends javax.swing.JFrame {
     }//GEN-LAST:event_tfIDActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        //Verificar si existe un Tramite con el ID
         String id = tfID.getText();
-        int posID = Administrador.BuscarTramitePorID(id);
-        if (posID == -1){
+        int posID = Administrador.BuscarTramiteDisponible(id);
+        int posIDFin = Administrador.BuscarTramiteFinalizado(id);
+        if (!Administrador.ExisteTramite(id)){
             Administrador.AdvertirError("Error:\nID no encontrado", "");
             return;
         }
-        Tramite encontrado = Administrador.listaTramites.iesimo(posID);
-        //Administrador.admMov.setTramiteReg(encontrado);
-        //Para la tabla
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"a","b","c"},0);
-        tableMoves.setModel(model);
         
-        Pila<Movimiento> pila = encontrado.getHistorialMov();
-        Pila<Movimiento> aux = new Pila<>();
-        while(!pila.esVacia()){
-            Movimiento mov = pila.desapilar();
-            aux.apilar(mov);
-            String fechaIn = mov.getFechaEntrada().toString();
-            String fechaOut = mov.getFechaSalida().toString();
-            String lugar = mov.getLugar().getNombre();
-            model.addRow(new Object[]{fechaIn,lugar,fechaOut});
+        //Sacarlo de los tramites activos o finalizados
+        Tramite encontrado;
+        if (posID != -1){
+            encontrado = Administrador.listaTramites.iesimo(posID);
+            lbEstado.setText("Estado:\nActivo");
         }
-        while(!aux.esVacia()){
-            pila.apilar(aux.desapilar());
+        else{
+            encontrado = Administrador.listaTramitesFinalizados.iesimo(posIDFin);
+            lbEstado.setText("Estado:\nFinalizado");
         }
+        
+        //Crear la tabla
+        DefaultTableModel modelTable = new DefaultTableModel(new Object[]{"Fecha Entrada","Lugar","Fecha Salida"},0);
+        tableMoves.setModel(modelTable);
+        
+        //Rellenarla
+        Administrador.admMov.setTramiteReg(encontrado);
+        Administrador.admMov.CrearTablaDeMovimientos(modelTable);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -236,6 +246,7 @@ public class VerMovimientos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbEstado;
     private javax.swing.JTable tableMoves;
     private javax.swing.JTextField tfID;
     // End of variables declaration//GEN-END:variables

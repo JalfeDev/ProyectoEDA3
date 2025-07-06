@@ -152,13 +152,13 @@ public class FinalizarVentana extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         String id = tfID.getText();
-        int posID = Administrador.BuscarTramitePorID(id);
+        int posID = Administrador.BuscarTramiteDisponible(id);
         if (posID == -1){
             Administrador.AdvertirError("Error:\nID no encontrado", "");
             return;
         }
-        Tramite encontrado = Administrador.listaTramites.iesimo(posID);
-        
+        Administrador.FinalizarTramite(posID);
+        JOptionPane.showMessageDialog(null, "Se finalizo el tramite");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

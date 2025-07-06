@@ -70,5 +70,4 @@ public class Tramite {
     public void finalizarExpediente(){
         this.finalizado = true;
     }
- 
 }

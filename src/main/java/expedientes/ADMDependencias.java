@@ -34,7 +34,7 @@ public class ADMDependencias {
         for (int i = 1; i <= listaDependencias.longitud(); i++) {
             Dependencia dep = listaDependencias.iesimo(i);
             if (dep.getNombre().equalsIgnoreCase(nombre)) {
-                return dep; // Se encontró la dependencia
+                return dep;
             }
         }
         return null;

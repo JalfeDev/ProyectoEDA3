@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package expedientes;
+import javax.swing.table.DefaultTableModel;
 import tda.*;
 /**
  *
@@ -41,9 +42,24 @@ public class ADMMovimientos {
         Dependencia oficinaCentral = Administrador.admDep.getListaDependencias().iesimo(1);
         Movimiento mov = new Movimiento(fechaCreacion, oficinaCentral, fechaCreacion);
         historialMov.apilar(mov);
+        System.out.println(mov.toString());
+        System.out.println(mov.getFechaEntrada().toString());
     }
     
-    
+    public void CrearTablaDeMovimientos(DefaultTableModel model){
+        Pila<Movimiento> aux = new Pila<>();
+        while(!historialMov.esVacia()){
+            Movimiento mov = historialMov.desapilar();
+            aux.apilar(mov);
+            String fechaIn = mov.getFechaEntrada().toString();
+            String fechaOut = mov.getFechaSalida().toString();
+            String lugar = mov.getLugar().getNombre();
+            model.addRow(new Object[]{fechaIn,lugar,fechaOut});
+        }
+        while(!aux.esVacia()){
+            historialMov.apilar(aux.desapilar());
+        }
+    }
     
     //No usaremos print, pero podemos usarlo luego
     public void mostrarHistorial(){
