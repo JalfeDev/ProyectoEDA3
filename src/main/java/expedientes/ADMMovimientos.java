@@ -39,7 +39,7 @@ public class ADMMovimientos {
             System.out.println("Error ADMMovimientos: tramiteReg es null!");
             return;
         }
-        Dependencia oficinaCentral = Administrador.admDep.getListaDependencias().iesimo(1);
+        Dependencia oficinaCentral = Administrador.admDep.getDependenciaInicial();
         Movimiento mov = new Movimiento(fechaCreacion, oficinaCentral, fechaCreacion);
         historialMov.apilar(mov);
         System.out.println(mov.toString());

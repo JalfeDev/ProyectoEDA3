@@ -142,4 +142,9 @@ public class Dependencia {
 
         colaTramites = aux;
     }
+    
+    @Override
+    public String toString() {
+        return nombre + " - " + encargado;
+    }
 }
