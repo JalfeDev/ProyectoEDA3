@@ -26,22 +26,22 @@ public class IngresoMovimiento extends javax.swing.JFrame {
     private VerMovimientos ventanaMov;
     private Tramite tramite;
     private Movimiento ultMovimiento;
-    
+
     public IngresoMovimiento() {
         initComponents();
     }
-    
+
     public IngresoMovimiento(VerMovimientos home, Tramite tramite) {
         initComponents();
         this.ventanaMov = home;
         this.tramite = tramite;
-        
+
         Administrador.admMov.setTramiteReg(tramite);
         ultMovimiento = Administrador.admMov.getUltimoMovimiento();
 
         lbDepUltima.setText(ultMovimiento.getLugar().getNombre());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,22 +152,21 @@ public class IngresoMovimiento extends javax.swing.JFrame {
         //Mirar si el tfAceptar es Dependencia valida
         String nombre = tfDependencia.getText();
         Dependencia dep = Administrador.admDep.buscarDependencia(nombre);
-        if (dep == null){
+        if (dep == null) {
             Administrador.AdvertirError("No existe tal dependencia", "");
             return;
-        }
-        else if (dep.getNombre().equalsIgnoreCase(lbDepUltima.getText())){
+        } else if (dep.getNombre().equalsIgnoreCase(lbDepUltima.getText())) {
             Administrador.AdvertirError("El origen y el destino deben de ser distintos", "");
             return;
         }
-        
+
         ultMovimiento.setFechaSalida(Fecha.GetFechaActual(5));
         Movimiento newMov = new Movimiento(Fecha.GetFechaActual(5), dep, null);
         //Agregar  Tramite.historialMovimientos
         Administrador.admMov.agregarMovimiento(newMov);
         //Quitarlo de Dependencia.colaTramitesa
         dep.eliminarExpediente(tramite.getId());
-        
+
         JOptionPane.showMessageDialog(null, "Se registro un nuevo movimiento");
         ventanaMov.SetCreoVentana(false);
         ventanaMov.ActualizarTabla();

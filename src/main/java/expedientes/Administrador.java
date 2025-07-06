@@ -80,24 +80,14 @@ public class Administrador {
         tramite.finalizarExpediente();
         listaTramites.eliminar(posID);
         listaTramitesFinalizados.agregar(tramite);
+        admAlertas.EliminarTramite(tramite);
         //Finalizar el tramite en ADMDependencias
         Dependencia ultimoLugar = admDep.getDependenciaFinal(tramite);
         ultimoLugar.finalizarExpediente(tramite.getId());
     }
     
     //Alertas automaticas
-    private ListaCircularSimple<Tramite> listaAlertas = new ListaCircularSimple<>();
-    public static void EmpezarTimer(){
-        //Se repite hasta el infinito cada 50 segundos
-        int segundos = 30;
-        Timer timer = new Timer(segundos*1000, e -> {
-            VerificarTramitesPendientes();
-        });
-        timer.start();
-    }
-    private static void VerificarTramitesPendientes(){
-        JOptionPane.showMessageDialog(null, "Txt", "Titulo", JOptionPane.WARNING_MESSAGE);
-    }
+    public static ADMAlertas admAlertas = new ADMAlertas();
     
     public static int TryCatchInt(String strVal){
         int value;

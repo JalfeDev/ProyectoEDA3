@@ -284,10 +284,13 @@ public class IngresoExp extends javax.swing.JFrame {
             Dependencia ofCentral = Administrador.admDep.getDependenciaInicial();
             ofCentral.agregarExpediente(tramite);
             
+            //Agregar el tramite a las lista del Admin
+            Administrador.listaTramites.agregar(tramite);
+            Administrador.admAlertas.AgregarTramite(tramite);
+            
             //Agregar la oficina central a su historial de movimientos
             Administrador.admMov.setTramiteReg(tramite);
             Administrador.admMov.agregarMovimientoInicial(inicioTramite);
-            Administrador.listaTramites.agregar(tramite);
             
             //Confirmar
             JOptionPane.showMessageDialog(null, "Se creo el expediente");
