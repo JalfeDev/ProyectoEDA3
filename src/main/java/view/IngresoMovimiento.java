@@ -160,8 +160,8 @@ public class IngresoMovimiento extends javax.swing.JFrame {
             return;
         }
 
-        ultMovimiento.setFechaSalida(Fecha.GetFechaActual(5));
-        Movimiento newMov = new Movimiento(Fecha.GetFechaActual(5), dep, null);
+        ultMovimiento.setFechaSalida(Fecha.GetFechaActual(6));
+        Movimiento newMov = new Movimiento(Fecha.GetFechaActual(6), dep, null);
         //Agregar  Tramite.historialMovimientos
         Administrador.admMov.agregarMovimiento(newMov);
         //Quitarlo de Dependencia.colaTramitesa

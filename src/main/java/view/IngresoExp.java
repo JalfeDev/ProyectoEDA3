@@ -37,7 +37,7 @@ public class IngresoExp extends javax.swing.JFrame {
         this.creandoPersona = false;
         this.registrado = false;
         
-        this.inicioTramite = Fecha.GetFechaActual(-5);
+        this.inicioTramite = Fecha.GetFechaActual(-4);
     }
     
     public void SetCreandoPersona(boolean b){
