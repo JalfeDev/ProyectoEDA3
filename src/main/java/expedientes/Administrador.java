@@ -22,8 +22,9 @@ public class Administrador {
     
     //Para el Registro de Tramites
     public static Lista<Interesado> listaInteresados = new Lista<>();
-    public static ListaDoble<Tramite> listaTramites = new ListaDoble<>();
-    public static ListaDoble<Tramite> listaTramitesFinalizados = new ListaDoble<>();
+    public static Lista<Tramite> listaTramites = new Lista<>();
+    public static Lista<Tramite> listaTramitesFinalizados = new Lista<>();
+    public static ListaDoble<Tramite> listaTramitesTotales = new ListaDoble<>();
     public static int BuscarDNI(int dni){
         int n = listaInteresados.longitud();
         for (int i = 1; i <= n; i++) {
@@ -54,27 +55,20 @@ public class Administrador {
         }
         return -1;
     }
-    public static boolean ExisteTramite(String id){
-        int n = listaTramites.longitud();
-        int m = listaTramitesFinalizados.longitud();
-        for (int i = 1; i <= n; i++) {
-            Tramite tramite = listaTramites.iesimo(i);
+    public static int ExisteTramite(String id){
+        int l = listaTramitesTotales.longitud();
+        for (int i = 1; i <= l; i++) {
+            Tramite tramite = listaTramitesTotales.iesimo(i);
             if (tramite.getId().equals(id)){
-                return true;
+                return i;
             }
         }
-        for (int i = 1; i <= m; i++) {
-            Tramite tramiteF = listaTramitesFinalizados.iesimo(i);
-            if (tramiteF.getId().equals(id)){
-                return true;
-            }
-        }
-        return false;
+        return -1;
     }
     
     //Para el Registro de Movimientos
     public static ADMDependencias admDep = new ADMDependencias();
-    public static ADMMovimientos admMov = new ADMMovimientos();    
+    public static ADMMovimientos admMov = new ADMMovimientos(); 
     public static void FinalizarTramite(int posID){
         //Finalizar el tramite en Admin
         Tramite tramite = listaTramites.iesimo(posID);

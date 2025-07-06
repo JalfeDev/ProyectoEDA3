@@ -131,22 +131,14 @@ public class InformarInteresado extends javax.swing.JFrame {
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         String id = tfID.getText();
-        if (!Administrador.ExisteTramite(id)){
+        int posIDT = Administrador.ExisteTramite(id);
+        if (posIDT == -1){
             Administrador.AdvertirError("No existe tramite con ese ID", "");
             return;
         }
         //Obtener el tramite
         //Hacer el contenido
-        //Enviarlo a su correo
-        int posID = Administrador.BuscarTramiteDisponible(id);
-        int posIDFin = Administrador.BuscarTramiteFinalizado(id);
-        Tramite tramite;
-        if (posIDFin == -1){
-            tramite = Administrador.listaTramites.iesimo(posID);
-        }
-        else{
-            tramite = Administrador.listaTramitesFinalizados.iesimo(posIDFin);
-        }
+        Tramite tramite = Administrador.listaTramitesTotales.iesimo(posIDT);
         int dni = tramite.getInteresado().getDni();
         String nombres = tramite.getInteresado().getNombres();
         String email = tramite.getInteresado().getEmail();

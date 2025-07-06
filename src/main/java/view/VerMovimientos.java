@@ -7,6 +7,7 @@ package view;
 import expedientes.Administrador;
 import expedientes.Movimiento;
 import expedientes.Tramite;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,7 @@ public class VerMovimientos extends javax.swing.JFrame {
     private Bienvenido home;
     private boolean creoVentana;
     private Tramite encontrado;
+    private int posicion;
     
     public VerMovimientos() {
         initComponents();
@@ -34,11 +36,41 @@ public class VerMovimientos extends javax.swing.JFrame {
         this.home = home;
         this.creoVentana = false;
         this.encontrado = null;
+        this.posicion = 1;
         btnAgregar.setEnabled(false);
+        
+        btnMovIzq.setEnabled(false);
+        btnMovDer.setEnabled(false);
     }
     
     public void SetCreoVentana(boolean b){
         creoVentana = b;
+    }
+    
+    private void ActualizarEstado(){
+        if (!encontrado.esFinalizado()){
+            lbEstado.setText("Estado:\nActivo");
+            btnAgregar.setEnabled(true);
+        }
+        else{
+            lbEstado.setText("Estado:\nFinalizado");
+            btnAgregar.setEnabled(false);
+        }
+    }
+    
+    private void ActualizarFlechas(){
+        int total = Administrador.listaTramitesTotales.longitud();
+        if (Administrador.listaTramitesTotales.esVacia()){
+            btnMovIzq.setEnabled(false);
+            btnMovDer.setEnabled(false);
+            return;
+        }
+        
+        if (posicion == 1) btnMovIzq.setEnabled(false);
+        else btnMovIzq.setEnabled(true);
+
+        if (posicion == total) btnMovDer.setEnabled(false);
+        else btnMovDer.setEnabled(true);
     }
     
     public void ActualizarTabla(){
@@ -71,6 +103,9 @@ public class VerMovimientos extends javax.swing.JFrame {
         tableMoves = new javax.swing.JTable();
         lbEstado = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
+        btnMovIzq = new javax.swing.JButton();
+        btnMovDer = new javax.swing.JButton();
+        chbBuscar = new javax.swing.JCheckBox();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -150,27 +185,64 @@ public class VerMovimientos extends javax.swing.JFrame {
             }
         });
 
+        btnMovIzq.setText("<-");
+        btnMovIzq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovIzqActionPerformed(evt);
+            }
+        });
+
+        btnMovDer.setText("->");
+        btnMovDer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovDerActionPerformed(evt);
+            }
+        });
+
+        chbBuscar.setSelected(true);
+        chbBuscar.setText("Buscar/Seguir");
+        chbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tfID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))))
-                            .addComponent(lbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnMovIzq, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(58, 58, 58))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(24, 24, 24)
+                                                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnMovDer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -179,23 +251,30 @@ public class VerMovimientos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnMovDer)
+                            .addComponent(btnMovIzq))
+                        .addGap(16, 16, 16)
+                        .addComponent(chbBuscar)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(lbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(btnExit)
-                .addGap(20, 20, 20))
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(btnExit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,27 +300,17 @@ public class VerMovimientos extends javax.swing.JFrame {
             Administrador.AdvertirError("Hay una venta abierta", "");
             return;
         }
-        //Verificar si existe un Tramite con el ID
+        //Obtener el tramite
         String id = tfID.getText();
-        int posID = Administrador.BuscarTramiteDisponible(id);
-        int posIDFin = Administrador.BuscarTramiteFinalizado(id);
-        if (!Administrador.ExisteTramite(id)){
-            Administrador.AdvertirError("Error:\nID no encontrado", "");
+        int posIDT = Administrador.ExisteTramite(id);
+        if (posIDT == -1){
+            Administrador.AdvertirError("No existe tramite con ese ID", "");
             return;
         }
-        
+        encontrado = Administrador.listaTramitesTotales.iesimo(posIDT);
         //Sacarlo de los tramites activos o finalizados
-        if (posID != -1){
-            encontrado = Administrador.listaTramites.iesimo(posID);
-            lbEstado.setText("Estado:\nActivo");
-            btnAgregar.setEnabled(true);
-        }
-        else{
-            encontrado = Administrador.listaTramitesFinalizados.iesimo(posIDFin);
-            lbEstado.setText("Estado:\nFinalizado");
-            btnAgregar.setEnabled(false);
-        }
-        
+        ActualizarEstado();
+        //Hacer las filas de la tala
         ActualizarTabla();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -252,6 +321,68 @@ public class VerMovimientos extends javax.swing.JFrame {
             creoVentana = true;
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void chbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbBuscarActionPerformed
+        boolean esModoBuscar = (chbBuscar.isSelected());
+        if (creoVentana){
+            Administrador.AdvertirError("Hay una venta abierta", "");
+            chbBuscar.setSelected(!esModoBuscar);
+            return;
+        }
+        btnMovIzq.setEnabled(!esModoBuscar);
+        btnMovDer.setEnabled(!esModoBuscar);
+
+        tfID.setEnabled(esModoBuscar);
+        btnBuscar.setEnabled(esModoBuscar);
+        
+        if (!esModoBuscar) {
+            encontrado = Administrador.listaTramitesTotales.iesimo(posicion);
+            if (encontrado != null){
+                //Sacarlo de los tramites activos o finalizados
+                ActualizarEstado();
+                //Hacer las filas de la tala
+                ActualizarTabla();
+            }
+            ActualizarFlechas();
+            tfID.setText(encontrado.getId());
+        }
+    }//GEN-LAST:event_chbBuscarActionPerformed
+
+    private void btnMovIzqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovIzqActionPerformed
+        if (creoVentana){
+            Administrador.AdvertirError("Hay una venta abierta", "");
+            return;
+        }
+        posicion--;
+        //Obtener el tramite
+        encontrado = Administrador.listaTramitesTotales.iesimo(posicion);
+        //Sacarlo de los tramites activos o finalizados
+        ActualizarEstado();
+        //Hacer las filas de la tala
+        ActualizarTabla();
+        
+        //Actualizar La Flecha
+        ActualizarFlechas();
+        tfID.setText(encontrado.getId());
+    }//GEN-LAST:event_btnMovIzqActionPerformed
+
+    private void btnMovDerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovDerActionPerformed
+        if (creoVentana){
+            Administrador.AdvertirError("Hay una venta abierta", "");
+            return;
+        }
+        posicion++;
+        //Obtener el tramite
+        encontrado = Administrador.listaTramitesTotales.iesimo(posicion);
+        //Sacarlo de los tramites activos o finalizados
+        ActualizarEstado();
+        //Hacer las filas de la tala
+        ActualizarTabla();
+        
+        //Actualizar La Flecha
+        ActualizarFlechas();
+        tfID.setText(encontrado.getId());
+    }//GEN-LAST:event_btnMovDerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +430,9 @@ public class VerMovimientos extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JToggleButton btnExit;
+    private javax.swing.JButton btnMovDer;
+    private javax.swing.JButton btnMovIzq;
+    private javax.swing.JCheckBox chbBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

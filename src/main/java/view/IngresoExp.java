@@ -260,7 +260,7 @@ public class IngresoExp extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        boolean existeID = Administrador.ExisteTramite(tfID.getText());
+        int posIDT = Administrador.ExisteTramite(tfID.getText());
         if (tfAsunto.getText().isEmpty()){
             Administrador.AdvertirError("El asunto esta vacio", "");
         }
@@ -270,7 +270,7 @@ public class IngresoExp extends javax.swing.JFrame {
         else if (!registrado){
             Administrador.AdvertirError("Aun no estas registrado", "");
         }
-        else if (existeID){
+        else if (posIDT != -1){
             Administrador.AdvertirError("El ID del tramite ya existe", "");
         }
         else {
@@ -287,6 +287,7 @@ public class IngresoExp extends javax.swing.JFrame {
             //Agregar el tramite a las lista del Admin
             Administrador.listaTramites.agregar(tramite);
             Administrador.admAlertas.AgregarTramite(tramite);
+            Administrador.listaTramitesTotales.agregar(tramite);
             
             //Agregar la oficina central a su historial de movimientos
             Administrador.admMov.setTramiteReg(tramite);
