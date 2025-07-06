@@ -324,7 +324,7 @@ public class IngresoExp extends javax.swing.JFrame {
         }
         int posDNI = Administrador.BuscarDNI(dni);
         if (posDNI == -1){
-            int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION);
+            int respuesta = JOptionPane.showConfirmDialog(null,"No hay DNI registrado\n¿Quieres registrarte?","Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION){
                 IngresoInteresado ventanaPersona = new IngresoInteresado(this, dni);
                 ventanaPersona.setVisible(true);

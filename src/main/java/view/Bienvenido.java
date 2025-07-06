@@ -29,6 +29,8 @@ public class Bienvenido extends javax.swing.JFrame {
         initComponents();
         ventanaIni = c;
         creoVentana = false;
+        
+        Administrador.EmpezarTimer();
     }
     
     public void SetCreoVentana(boolean b){

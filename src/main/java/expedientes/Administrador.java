@@ -6,7 +6,9 @@ package expedientes;
 // PROBANDO TOKEN
 
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import tda.Lista;
+import tda.ListaCircularSimple;
 
 /**
  *
@@ -81,6 +83,20 @@ public class Administrador {
         //Finalizar el tramite en ADMDependencias
         Dependencia ultimoLugar = admDep.getDependenciaFinal(tramite);
         ultimoLugar.finalizarExpediente(tramite.getId());
+    }
+    
+    //Alertas automaticas
+    private ListaCircularSimple<Tramite> listaAlertas = new ListaCircularSimple<>();
+    public static void EmpezarTimer(){
+        //Se repite hasta el infinito cada 50 segundos
+        int segundos = 30;
+        Timer timer = new Timer(segundos*1000, e -> {
+            VerificarTramitesPendientes();
+        });
+        timer.start();
+    }
+    private static void VerificarTramitesPendientes(){
+        JOptionPane.showMessageDialog(null, "Txt", "Titulo", JOptionPane.WARNING_MESSAGE);
     }
     
     public static int TryCatchInt(String strVal){

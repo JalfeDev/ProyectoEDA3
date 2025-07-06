@@ -50,6 +50,22 @@ public class ADMMovimientos {
         return mov;
     }
     
+    public String getSeguimiento(){
+        Pila<Movimiento> aux = new Pila<>();
+        Movimiento primero = historialMov.desapilar();
+        aux.apilar(primero);
+        String res = primero.getLugar().getNombre();
+        while(!historialMov.esVacia()){
+            Movimiento mov = historialMov.desapilar();
+            aux.apilar(mov);
+            res += " -> " + mov.getLugar().getNombre();
+        }
+        while(!aux.esVacia()){
+            historialMov.apilar(aux.desapilar());
+        }
+        return res;
+    }
+    
     public void CrearTablaDeMovimientos(DefaultTableModel model){
         Pila<Movimiento> aux = new Pila<>();
         Pila<Movimiento> inv = new Pila<>();

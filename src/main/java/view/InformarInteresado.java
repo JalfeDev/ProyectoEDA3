@@ -132,7 +132,7 @@ public class InformarInteresado extends javax.swing.JFrame {
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         String id = tfID.getText();
         if (!Administrador.ExisteTramite(id)){
-            Administrador.AdvertirError("El existe tramite con ese ID", "");
+            Administrador.AdvertirError("No existe tramite con ese ID", "");
             return;
         }
         //Obtener el tramite
@@ -165,8 +165,10 @@ public class InformarInteresado extends javax.swing.JFrame {
         if (tramite.esPrioritario()) importancia = "Prioritario";
         else importancia = "Comun";
         String lugar = mov.getLugar().getNombre();
-        
         JOptionPane.showMessageDialog(null, "Estado del tramite: "+estado + "\nImportancia: "+importancia + "\nLugar actual del tramite: "+lugar);
+        
+        String seguimiento = Administrador.admMov.getSeguimiento();
+        JOptionPane.showMessageDialog(null, "Lugares en los que estuvo:\n"+seguimiento);
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void tfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDActionPerformed
