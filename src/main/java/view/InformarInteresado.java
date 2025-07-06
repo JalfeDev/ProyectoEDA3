@@ -9,6 +9,7 @@ import expedientes.Dependencia;
 import expedientes.Documento;
 import expedientes.Fecha;
 import expedientes.Interesado;
+import expedientes.Movimiento;
 import expedientes.Tramite;
 import javax.swing.JOptionPane;
 
@@ -48,8 +49,6 @@ public class InformarInteresado extends javax.swing.JFrame {
         btnExit = new javax.swing.JToggleButton();
         btnAccept = new javax.swing.JToggleButton();
         tfID = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfDNI = new javax.swing.JTextField();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -87,37 +86,23 @@ public class InformarInteresado extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("DNI");
-
-        tfDNI.setText("1234");
-        tfDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfDNIActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAccept)))
-                .addGap(40, 40, 40))
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAccept)
+                .addGap(61, 61, 61))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,16 +111,13 @@ public class InformarInteresado extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfID)
-                        .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnAccept))
-                .addGap(24, 24, 24))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -148,17 +130,48 @@ public class InformarInteresado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        String id = tfID.getText();
+        if (!Administrador.ExisteTramite(id)){
+            Administrador.AdvertirError("El existe tramite con ese ID", "");
+            return;
+        }
+        //Obtener el tramite
+        //Hacer el contenido
+        //Enviarlo a su correo
+        int posID = Administrador.BuscarTramiteDisponible(id);
+        int posIDFin = Administrador.BuscarTramiteFinalizado(id);
+        Tramite tramite;
+        if (posIDFin == -1){
+            tramite = Administrador.listaTramites.iesimo(posID);
+        }
+        else{
+            tramite = Administrador.listaTramitesFinalizados.iesimo(posIDFin);
+        }
+        int dni = tramite.getInteresado().getDni();
+        String nombres = tramite.getInteresado().getNombres();
+        String email = tramite.getInteresado().getEmail();
+        int telefono = tramite.getInteresado().getTelefono();
+        String trabajo = tramite.getInteresado().getTrabajo();
+        String contenido = "DNI: "+dni + "\nNombres: "+nombres + "\nemail: "+email + "\nTelefono: "+telefono + "\nTipo de trabajo: "+trabajo;
+        JOptionPane.showMessageDialog(null, "Se envio el informe correctamente a\n" + contenido);
         
+        Administrador.admMov.setTramiteReg(tramite);
+        Movimiento mov = Administrador.admMov.getUltimoMovimiento();
         
+        String estado;
+        if (!tramite.esFinalizado()) estado = "Activo";
+        else estado = "Finalizado";
+        String importancia;
+        if (tramite.esPrioritario()) importancia = "Prioritario";
+        else importancia = "Comun";
+        String lugar = mov.getLugar().getNombre();
+        
+        JOptionPane.showMessageDialog(null, "Estado del tramite: "+estado + "\nImportancia: "+importancia + "\nLugar actual del tramite: "+lugar);
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void tfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIDActionPerformed
-
-    private void tfDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDNIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +222,6 @@ public class InformarInteresado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField tfDNI;
     private javax.swing.JTextField tfID;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,4 +28,22 @@ public class Interesado {
     public int getDni() {
         return dni;
     }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTrabajo() {
+        return trabajo;
+    }
+    
+    
 }

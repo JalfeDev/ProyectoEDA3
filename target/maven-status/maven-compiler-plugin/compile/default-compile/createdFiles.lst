@@ -39,7 +39,6 @@ view\IngresoDependencia.class
 tda\ListaCircularSimple.class
 view\Inicio$2.class
 view\VerMovimientos$5.class
-view\InformarInteresado$5.class
 expedientes\Fecha.class
 view\IngresoInteresado$5.class
 view\Bienvenido$3.class

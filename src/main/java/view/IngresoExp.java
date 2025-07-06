@@ -319,7 +319,7 @@ public class IngresoExp extends javax.swing.JFrame {
         }
         int dni = Administrador.TryCatchInt(tfDNI.getText());
         if (dni <= 0){
-            Administrador.AdvertirError("Numero invalido", "");
+            Administrador.AdvertirError("Numero de DNI invalido", "");
             return;
         }
         int posDNI = Administrador.BuscarDNI(dni);
