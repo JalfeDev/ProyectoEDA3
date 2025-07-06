@@ -77,7 +77,7 @@ public class IngresoDependencia extends javax.swing.JFrame {
             }
         });
 
-        tfEncargado.setText(".......");
+        tfEncargado.setText("......");
         tfEncargado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfEncargadoActionPerformed(evt);
@@ -104,7 +104,7 @@ public class IngresoDependencia extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Encargado");
 
-        tfNombre.setText(".......");
+        tfNombre.setText("......");
         tfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNombreActionPerformed(evt);

@@ -3,6 +3,7 @@ view\VerMovimientos$3.class
 expedientes\Documento.class
 view\FinalizarVentana$4.class
 view\IngresoDependencia$2.class
+view\IngresoMovimiento$3.class
 view\Inicio.class
 expedientes\ADMDependencias.class
 view\FinalizarVentana.class
@@ -11,9 +12,11 @@ expedientes\Dependencia.class
 view\IngresoInteresado$3.class
 view\IngresoInteresado$6.class
 expedientes\Administrador.class
+view\IngresoMovimiento.class
 view\Bienvenido$1.class
 view\IngresoDependencia$1.class
 view\VerMovimientos.class
+view\IngresoMovimiento$2.class
 view\Inicio$3.class
 tda\Nodo.class
 view\Bienvenido$4.class
@@ -27,6 +30,7 @@ tda\NodoDoble.class
 view\FinalizarVentana$1.class
 tda\ListaDoble.class
 view\IngresoExp$6.class
+view\VerMovimientos$6.class
 view\IngresoDependencia$5.class
 view\IngresoInteresado$2.class
 view\IngresoDependencia.class
@@ -50,6 +54,7 @@ view\IngresoExp$5.class
 tda\NodoAB.class
 view\Inicio$1.class
 tda\Cola.class
+view\IngresoMovimiento$4.class
 expedientes\Tramite.class
 view\Bienvenido$2.class
 view\IngresoDependencia$3.class
@@ -62,4 +67,5 @@ tda\ListaCircularDoble.class
 tda\Lista.class
 view\FinalizarVentana$3.class
 view\IngresoExp$1.class
+view\IngresoMovimiento$1.class
 view\VerMovimientos$1.class

@@ -30,4 +30,8 @@ public class Movimiento {
     public Fecha getFechaSalida() {
         return fechaSalida;
     }
+
+    public void setFechaSalida(Fecha fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
 }

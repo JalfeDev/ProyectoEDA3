@@ -71,7 +71,7 @@ public class ADMDependencias {
         return null;
     }
     
-    public Dependencia buscarDependencia(NodoAB<Dependencia> nodo, String nombre) {
+    private Dependencia buscarDependencia(NodoAB<Dependencia> nodo, String nombre) {
         if (nodo == null){
             return null;
         }

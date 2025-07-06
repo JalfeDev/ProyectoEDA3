@@ -11,9 +11,9 @@ import tda.*;
  */
 public class ADMMovimientos {
     //El tramite a cambiar
-    Tramite tramiteReg;
+    private Tramite tramiteReg;
     //Esta variable sera para acortar el "tramiteReg.getHistorialMov()"
-    Pila<Movimiento> historialMov;
+    private Pila<Movimiento> historialMov;
     
     
     public ADMMovimientos() {
@@ -40,21 +40,33 @@ public class ADMMovimientos {
             return;
         }
         Dependencia oficinaCentral = Administrador.admDep.getDependenciaInicial();
-        Movimiento mov = new Movimiento(fechaCreacion, oficinaCentral, fechaCreacion);
+        Movimiento mov = new Movimiento(fechaCreacion, oficinaCentral, null);
         historialMov.apilar(mov);
-        System.out.println(mov.toString());
-        System.out.println(mov.getFechaEntrada().toString());
+    }
+    
+    public Movimiento getUltimoMovimiento(){
+        Movimiento mov = historialMov.desapilar();
+        historialMov.apilar(mov);
+        return mov;
     }
     
     public void CrearTablaDeMovimientos(DefaultTableModel model){
         Pila<Movimiento> aux = new Pila<>();
+        Pila<Movimiento> inv = new Pila<>();
         while(!historialMov.esVacia()){
             Movimiento mov = historialMov.desapilar();
             aux.apilar(mov);
+            inv.apilar(mov);
+        }
+        while(!inv.esVacia()){
+            Movimiento mov = inv.desapilar();
             String fechaIn = mov.getFechaEntrada().toString();
-            String fechaOut = mov.getFechaSalida().toString();
+            String fechaOut;
+            if (mov.getFechaSalida() == null) fechaOut = "Pendiente";
+            else fechaOut = mov.getFechaSalida().toString();
             String lugar = mov.getLugar().getNombre();
-            model.addRow(new Object[]{fechaIn,lugar,fechaOut});
+            String encargado = mov.getLugar().getEncargado();
+            model.addRow(new Object[]{fechaIn,fechaOut,lugar,encargado});
         }
         while(!aux.esVacia()){
             historialMov.apilar(aux.desapilar());

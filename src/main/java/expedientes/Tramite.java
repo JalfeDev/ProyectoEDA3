@@ -66,7 +66,6 @@ public class Tramite {
     public Pila<Movimiento> getHistorialMov(){
         return historialMovimientos;
     }
-    
     public void finalizarExpediente(){
         this.finalizado = true;
     }

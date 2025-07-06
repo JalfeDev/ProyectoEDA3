@@ -14,7 +14,7 @@ public class Dependencia {
     private final String nombre;
     //Dueño de la oficina
     private final String encargado;
-    //Cada oficina tiene un monton de tramites
+    //Cada oficina tiene un monton de tramites actuales
     private final Cola<Tramite> colaTramites;
     //Cada oficina tiene un monton de tramites finalizados
     private final Pila<Tramite> tramitesArchivados;
@@ -112,7 +112,7 @@ public class Dependencia {
         System.out.println("");
     }
 
-    // Busca y elimina un expediente por ID
+    // Elimina y devuelve un expediente por ID
     public Tramite eliminarExpediente(String id) {
         Cola<Tramite> aux = new Cola<>();
         Tramite encontrado = null;

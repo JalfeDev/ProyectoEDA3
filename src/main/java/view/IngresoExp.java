@@ -26,7 +26,6 @@ public class IngresoExp extends javax.swing.JFrame {
     private boolean registrado;
     
     private Fecha inicioTramite;
-    private Fecha finTramite;
             
     public IngresoExp() {
         initComponents();
@@ -39,7 +38,6 @@ public class IngresoExp extends javax.swing.JFrame {
         this.registrado = false;
         
         this.inicioTramite = Fecha.GetFechaActual(-5);
-        this.finTramite = null;
     }
     
     public void SetCreandoPersona(boolean b){
@@ -112,7 +110,7 @@ public class IngresoExp extends javax.swing.JFrame {
             }
         });
 
-        tfID.setText("abc123...");
+        tfID.setText("abc123");
         tfID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIDActionPerformed(evt);
@@ -131,6 +129,7 @@ public class IngresoExp extends javax.swing.JFrame {
 
         tfDocumento.setColumns(20);
         tfDocumento.setRows(5);
+        tfDocumento.setText("a");
         tfDocumento.setToolTipText("");
         jScrollPane1.setViewportView(tfDocumento);
 
@@ -140,7 +139,7 @@ public class IngresoExp extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("DNI");
 
-        tfDNI.setText("123...");
+        tfDNI.setText("1234");
         tfDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDNIActionPerformed(evt);
@@ -262,7 +261,13 @@ public class IngresoExp extends javax.swing.JFrame {
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         boolean existeID = Administrador.ExisteTramite(tfID.getText());
-        if (!registrado){
+        if (tfAsunto.getText().isEmpty()){
+            Administrador.AdvertirError("El asunto esta vacio", "");
+        }
+        else if (tfDocumento.getText().isEmpty()){
+            Administrador.AdvertirError("El documento esta vacio", "");
+        }
+        else if (!registrado){
             Administrador.AdvertirError("Aun no estas registrado", "");
         }
         else if (existeID){
@@ -270,11 +275,10 @@ public class IngresoExp extends javax.swing.JFrame {
         }
         else {
             //Crear el tramite
-            finTramite = Fecha.GetFechaActual(0);
             int posDNI = Administrador.BuscarDNI(Integer.parseInt(tfDNI.getText()));
             Interesado interesado = Administrador.listaInteresados.iesimo(posDNI);
             Documento doc = new Documento(tfDocumento.getText());
-            Tramite tramite = new Tramite(tfID.getText(), chbPrioridad.isSelected(), interesado, tfAsunto.getText(), doc, inicioTramite, finTramite);
+            Tramite tramite = new Tramite(tfID.getText(), chbPrioridad.isSelected(), interesado, tfAsunto.getText(), doc, inicioTramite, null);
             
             //Agregar el tramite a la cola de la OficinaCentral
             Dependencia ofCentral = Administrador.admDep.getDependenciaInicial();
@@ -282,7 +286,7 @@ public class IngresoExp extends javax.swing.JFrame {
             
             //Agregar la oficina central a su historial de movimientos
             Administrador.admMov.setTramiteReg(tramite);
-            Administrador.admMov.agregarMovimientoInicial(finTramite);
+            Administrador.admMov.agregarMovimientoInicial(inicioTramite);
             Administrador.listaTramites.agregar(tramite);
             
             //Confirmar

@@ -22,7 +22,8 @@ public class VerMovimientos extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     private Bienvenido home;
-       
+    private boolean creoVentana;
+    private Tramite encontrado;
     
     public VerMovimientos() {
         initComponents();
@@ -31,6 +32,23 @@ public class VerMovimientos extends javax.swing.JFrame {
     public VerMovimientos(Bienvenido home) {
         initComponents();
         this.home = home;
+        this.creoVentana = false;
+        this.encontrado = null;
+        btnAgregar.setEnabled(false);
+    }
+    
+    public void SetCreoVentana(boolean b){
+        creoVentana = b;
+    }
+    
+    public void ActualizarTabla(){
+        //Crear la tabla
+        DefaultTableModel modelTable = new DefaultTableModel(new Object[]{"Fecha Entrada","Fecha Salida","Lugar","Encargado"},0);
+        tableMoves.setModel(modelTable);
+        
+        //Rellenarla
+        Administrador.admMov.setTramiteReg(encontrado);
+        Administrador.admMov.CrearTablaDeMovimientos(modelTable);
     }
     
     /**
@@ -52,6 +70,7 @@ public class VerMovimientos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableMoves = new javax.swing.JTable();
         lbEstado = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -61,7 +80,7 @@ public class VerMovimientos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ver Movimiento");
 
@@ -75,7 +94,7 @@ public class VerMovimientos extends javax.swing.JFrame {
             }
         });
 
-        tfID.setText(".......");
+        tfID.setText("abc123");
         tfID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIDActionPerformed(evt);
@@ -89,47 +108,71 @@ public class VerMovimientos extends javax.swing.JFrame {
             }
         });
 
+        tableMoves.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tableMoves.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha entrada", "Lugar", "Fecha salida"
+                "Fecha Entrada", "Fecha Salida", "Nombre", "Encargado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane2.setViewportView(tableMoves);
+        if (tableMoves.getColumnModel().getColumnCount() > 0) {
+            tableMoves.getColumnModel().getColumn(0).setMinWidth(100);
+            tableMoves.getColumnModel().getColumn(1).setMinWidth(100);
+        }
 
+        lbEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbEstado.setText("Estado:");
         lbEstado.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, 0)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))))
+                            .addComponent(lbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,14 +186,16 @@ public class VerMovimientos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(btnExit)
-                .addGap(22, 22, 22))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -158,8 +203,13 @@ public class VerMovimientos extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Salida
-        home.SetCreoVentana(false);
-        this.dispose();
+        if (creoVentana){
+            Administrador.AdvertirError("Hay una venta abierta", "");
+        }
+        else{
+            home.SetCreoVentana(false);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void tfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDActionPerformed
@@ -167,6 +217,10 @@ public class VerMovimientos extends javax.swing.JFrame {
     }//GEN-LAST:event_tfIDActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (creoVentana){
+            Administrador.AdvertirError("Hay una venta abierta", "");
+            return;
+        }
         //Verificar si existe un Tramite con el ID
         String id = tfID.getText();
         int posID = Administrador.BuscarTramiteDisponible(id);
@@ -177,24 +231,27 @@ public class VerMovimientos extends javax.swing.JFrame {
         }
         
         //Sacarlo de los tramites activos o finalizados
-        Tramite encontrado;
         if (posID != -1){
             encontrado = Administrador.listaTramites.iesimo(posID);
             lbEstado.setText("Estado:\nActivo");
+            btnAgregar.setEnabled(true);
         }
         else{
             encontrado = Administrador.listaTramitesFinalizados.iesimo(posIDFin);
             lbEstado.setText("Estado:\nFinalizado");
+            btnAgregar.setEnabled(false);
         }
         
-        //Crear la tabla
-        DefaultTableModel modelTable = new DefaultTableModel(new Object[]{"Fecha Entrada","Lugar","Fecha Salida"},0);
-        tableMoves.setModel(modelTable);
-        
-        //Rellenarla
-        Administrador.admMov.setTramiteReg(encontrado);
-        Administrador.admMov.CrearTablaDeMovimientos(modelTable);
+        ActualizarTabla();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if (!creoVentana){
+            IngresoMovimiento ventanaMov = new IngresoMovimiento(this, encontrado);
+            ventanaMov.setVisible(true);
+            creoVentana = true;
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +296,7 @@ public class VerMovimientos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JLabel jLabel1;

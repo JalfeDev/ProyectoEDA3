@@ -129,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfEncargado">
       <Properties>
-        <Property name="text" type="java.lang.String" value="......."/>
+        <Property name="text" type="java.lang.String" value="......"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfEncargadoActionPerformed"/>
@@ -179,7 +179,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfNombre">
       <Properties>
-        <Property name="text" type="java.lang.String" value="......."/>
+        <Property name="text" type="java.lang.String" value="......"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNombreActionPerformed"/>
