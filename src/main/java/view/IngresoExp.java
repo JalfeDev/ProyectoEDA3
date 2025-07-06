@@ -275,6 +275,7 @@ public class IngresoExp extends javax.swing.JFrame {
             Administrador.listaTramites.agregar(tramite);
             
             JOptionPane.showMessageDialog(null, "Se creo el expediente");
+            home.SetCreoVentana(false);
             this.dispose();
         }
         

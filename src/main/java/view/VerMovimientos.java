@@ -5,8 +5,12 @@
 package view;
 
 import expedientes.Administrador;
+import expedientes.Movimiento;
 import expedientes.Tramite;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import tda.Pila;
 
 /**
  *
@@ -18,7 +22,8 @@ public class VerMovimientos extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     private Bienvenido home;
-            
+       
+    
     public VerMovimientos() {
         initComponents();
     }
@@ -45,7 +50,7 @@ public class VerMovimientos extends javax.swing.JFrame {
         tfID = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableMoves = new javax.swing.JTable();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -57,7 +62,7 @@ public class VerMovimientos extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ingresar expediente");
+        jLabel1.setText("Ver Movimiento");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ID");
@@ -83,7 +88,7 @@ public class VerMovimientos extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableMoves.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -99,7 +104,7 @@ public class VerMovimientos extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tableMoves);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +123,7 @@ public class VerMovimientos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,8 +166,24 @@ public class VerMovimientos extends javax.swing.JFrame {
             return;
         }
         Tramite encontrado = Administrador.listaTramites.iesimo(posID);
-        //encontrado = Administrador.listaTramites.iesimo(posID);
-        //Ponerlos en la tabla
+        //Administrador.admMov.setTramiteReg(encontrado);
+        //Para la tabla
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"a","b","c"},0);
+        tableMoves.setModel(model);
+        
+        Pila<Movimiento> pila = encontrado.getHistorialMov();
+        Pila<Movimiento> aux = new Pila<>();
+        while(!pila.esVacia()){
+            Movimiento mov = pila.desapilar();
+            aux.apilar(mov);
+            String fechaIn = mov.getFechaEntrada().toString();
+            String fechaOut = mov.getFechaSalida().toString();
+            String lugar = mov.getLugar().getNombre();
+            model.addRow(new Object[]{fechaIn,lugar,fechaOut});
+        }
+        while(!aux.esVacia()){
+            pila.apilar(aux.desapilar());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -215,7 +236,7 @@ public class VerMovimientos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableMoves;
     private javax.swing.JTextField tfID;
     // End of variables declaration//GEN-END:variables
 }

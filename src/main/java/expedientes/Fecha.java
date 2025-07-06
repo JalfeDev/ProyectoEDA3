@@ -16,10 +16,6 @@ public class Fecha {
     private int year;
     private int hora;
     private int minuto;
-
-    public Fecha(){
-        
-    }
     
     public Fecha(int day, int month, int year, int hora, int minuto) {
         this.day = day;

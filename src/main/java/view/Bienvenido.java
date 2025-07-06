@@ -165,7 +165,6 @@ public class Bienvenido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegNewExpActionPerformed
 
     private void btnVerMovExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMovExpActionPerformed
-        // TODO add your handling code here:
         if (!creoVentana){
             VerMovimientos ventanaMovimientos = new VerMovimientos(this);
             ventanaMovimientos.setVisible(true);

@@ -43,6 +43,8 @@ public class ADMMovimientos {
         historialMov.apilar(mov);
     }
     
+    
+    
     //No usaremos print, pero podemos usarlo luego
     public void mostrarHistorial(){
         System.out.println("Historial del tramite " +tramiteReg.getId() + ":");
