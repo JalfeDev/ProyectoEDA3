@@ -60,7 +60,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnExit = new javax.swing.JToggleButton();
         tfID = new javax.swing.JTextField();
-        btnEliminar = new javax.swing.JToggleButton();
+        btnFinalizar = new javax.swing.JToggleButton();
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("ID");
@@ -77,7 +77,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ID");
 
-        btnExit.setText("Salir");
+        btnExit.setText("Atras");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -91,10 +91,10 @@ public class FinalizarVentana extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
 
@@ -107,7 +107,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEliminar)
+                .addComponent(btnFinalizar)
                 .addGap(22, 22, 22))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -127,7 +127,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
                     .addComponent(tfID))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
+                    .addComponent(btnFinalizar)
                     .addComponent(btnExit))
                 .addGap(20, 20, 20))
         );
@@ -150,7 +150,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIDActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         String id = tfID.getText();
         int posID = Administrador.BuscarTramiteDisponible(id);
         if (posID == -1){
@@ -159,7 +159,7 @@ public class FinalizarVentana extends javax.swing.JFrame {
         }
         Administrador.FinalizarTramite(posID);
         JOptionPane.showMessageDialog(null, "Se finalizo el tramite");
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,8 +204,8 @@ public class FinalizarVentana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnEliminar;
     private javax.swing.JToggleButton btnExit;
+    private javax.swing.JToggleButton btnFinalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
