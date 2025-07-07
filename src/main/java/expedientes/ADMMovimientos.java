@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import tda.*;
 /**
  *
- * @author maldo
+ * @author maldonado
  */
 public class ADMMovimientos {
     //El tramite a cambiar

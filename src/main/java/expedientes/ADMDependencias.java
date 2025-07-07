@@ -7,11 +7,12 @@ import tda.*;
 
 /**
  *
- * @author maldo
+ * @author maldonado
  */
 public class ADMDependencias {
     private final ArbolBinario<Dependencia> arbolDependencias;
-
+    
+//Inicializamos
     public ADMDependencias() {
         arbolDependencias = new ArbolBinario<>();
         arbolDependencias.crearRaiz(new Dependencia("Oficina Central","ULima"));
