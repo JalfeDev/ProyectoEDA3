@@ -7,7 +7,7 @@ import tda.Cola;
 import tda.Pila;
 /**
  *
- * @author maldo
+ * @author maldonado
  */
 public class Dependencia {
     //Oficina
