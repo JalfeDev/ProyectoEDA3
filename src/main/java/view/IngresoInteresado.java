@@ -241,7 +241,7 @@ public class IngresoInteresado extends javax.swing.JFrame {
         String nombre   = tfNombre.getText();
         String email    = tfEmail.getText();
         String trabajo;
-        if (rdbULima.isSelected()) trabajo = "Externo";
+        if (rdbULima.isSelected()) trabajo = "Ulima";
         else trabajo = "Externo";
         
         int telefono = Administrador.TryCatchInt(tfTelefono.getText());
@@ -252,6 +252,14 @@ public class IngresoInteresado extends javax.swing.JFrame {
         }
         if (interDNI <= 0){
             Administrador.AdvertirError("Numero de DNI invalido","");
+            return;
+        }
+        if (tfEmail.getText().isBlank() || tfEmail.getText().isEmpty()){
+            Administrador.AdvertirError("El email es invalido", "");
+            return;
+        }
+        if (tfNombre.getText().isBlank() || tfNombre.getText().isEmpty()){
+            Administrador.AdvertirError("El nombre es invalido", "");
             return;
         }
         if (Administrador.BuscarDNI(interDNI) != -1){

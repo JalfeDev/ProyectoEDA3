@@ -144,7 +144,7 @@ public class InformarInteresado extends javax.swing.JFrame {
         String email = tramite.getInteresado().getEmail();
         int telefono = tramite.getInteresado().getTelefono();
         String trabajo = tramite.getInteresado().getTrabajo();
-        String contenido = "DNI: "+dni + "\nNombres: "+nombres + "\nemail: "+email + "\nTelefono: "+telefono + "\nTipo de trabajo: "+trabajo;
+        String contenido = "DNI: "+dni + "\nNombres: "+nombres + "\nEmail: "+email + "\nTelefono: "+telefono + "\nTipo de trabajo: "+trabajo;
         JOptionPane.showMessageDialog(null, "Se envio el informe correctamente a\n" + contenido);
         
         Administrador.admMov.setTramiteReg(tramite);

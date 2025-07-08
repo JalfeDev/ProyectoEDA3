@@ -260,7 +260,8 @@ public class IngresoExp extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        int posIDT = Administrador.ExisteTramite(tfID.getText());
+        String id = tfID.getText();
+        int posIDT = Administrador.ExisteTramite(id);
         if (tfAsunto.getText().isEmpty()){
             Administrador.AdvertirError("El asunto esta vacio", "");
         }
@@ -269,6 +270,9 @@ public class IngresoExp extends javax.swing.JFrame {
         }
         else if (!registrado){
             Administrador.AdvertirError("Aun no estas registrado", "");
+        }
+        else if (id.isBlank() || id.isEmpty()){
+            Administrador.AdvertirError("El ID es invalido", "");
         }
         else if (posIDT != -1){
             Administrador.AdvertirError("El ID del tramite ya existe", "");

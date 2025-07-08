@@ -170,6 +170,7 @@ public class Bienvenido extends javax.swing.JFrame {
         }
         else{
             ventanaIni.ventanaWelcome = null;
+            Administrador.admAlertas.TerminarTimer();
             this.dispose();
         }
         
