@@ -10,9 +10,13 @@ package expedientes;
  */
 public class Documento {
     //Una lista de "vouchers"
-    public String texto;
+    private final String texto;
 
     public Documento(String texto) {
         this.texto = texto;
+    }
+    
+    public String getTexto(){
+        return texto;
     }
 }
