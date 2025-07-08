@@ -18,21 +18,29 @@ public class ADMAlertas {
     private int numTramPrioridad;
     //El mas antiguo y/o que tenga prioridad
     private Tramite tramiteUrgente;
+    private Timer timer;
     
     public ADMAlertas() {
         listaAlertas = new ListaCircularSimple<>();
         numTramComun = 0;
         numTramPrioridad = 0;
         tramiteUrgente = null;
+        timer = null;
     }
 
     public void EmpezarTimer(){
         //Se repite hasta el infinito cada 30 segundos
         int segundos = 30;
-        Timer timer = new Timer(segundos*1000, e -> {
+        timer = new Timer(segundos*1000, e -> {
             AlertarTramitesPendientes();
         });
         timer.start();
+    }
+    
+    public void TerminarTimer(){
+        if (timer != null){
+            timer.stop();
+        }
     }
     private void AlertarTramitesPendientes(){
         int total = numTramComun+numTramPrioridad;
