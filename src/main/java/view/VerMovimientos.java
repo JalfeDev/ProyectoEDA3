@@ -342,9 +342,9 @@ public class VerMovimientos extends javax.swing.JFrame {
                 ActualizarEstado();
                 //Hacer las filas de la tala
                 ActualizarTabla();
+                tfID.setText(encontrado.getId());
             }
             ActualizarFlechas();
-            tfID.setText(encontrado.getId());
         }
     }//GEN-LAST:event_chbBuscarActionPerformed
 
